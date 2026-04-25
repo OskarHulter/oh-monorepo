@@ -38,9 +38,7 @@ References
 - <path / file / url>
 ```
 
-If a step's flow isn't needed for the goal, replace its expected output with a one-paragraph summary explaining why and what you did instead. Don't silently skip — that loses the why.
-
-The Ralph Loop in [step 6](./implementation.md#implementor--the-ralph-loop) is intentional compaction in script form: each iteration starts fresh with only the standing prompt, recent commits, and ready issues. That's the shape to copy.
+If you skip the expected action for any reason, describe why and what you did instead in 1-2 paragraphs.
 
 ## The Cycle
 
