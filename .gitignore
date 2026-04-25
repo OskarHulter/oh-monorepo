@@ -13,7 +13,7 @@ dist-ssr
 *.local
 
 # Generated / test artifacts (any workspace)
-**/src/env.d.ts
+**/env.d.ts
 .vitest-attachments/
 **/tests/__screenshots__/
 
