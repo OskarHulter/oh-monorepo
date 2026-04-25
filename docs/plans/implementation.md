@@ -5,7 +5,7 @@
 
 ## Why
 
-The nightshift. The dayshift artifacts (research, PRD, kanban) exist so this step can run with minimal supervision: every change is justified by an issue, every issue closed by a green test, every slice merged independently.
+Every change justified by an issue, every issue closed by a green test, every slice merged independently — so the step can run with minimal supervision.
 
 ## The loop (per issue)
 
@@ -37,7 +37,6 @@ Stop and update the PRD or split the issue if you discover:
 - [ ] `vp check --fix` passes
 - [ ] New behaviour covered by a test
 - [ ] No unrelated changes in the diff
-- [ ] PR description states the user-facing effect
 
 ## Implementor — the Ralph Loop
 

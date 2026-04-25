@@ -27,8 +27,6 @@ Managing context matters more than following the steps prescriptively. Output qu
 
 ### Intentional compaction template
 
-When summarising module state into the next turn, use a fixed shape so the model can scan it without reparsing:
-
 ```
 Module flow
 1. <feature path> (<status>)
@@ -78,4 +76,3 @@ If you skip the expected action for any reason, describe why and what you did in
 - **Artifacts live in the repo.** PRDs, research, plans, ADRs all check in alongside code.
 - **Beads tracks state.** Use `bd` for issues; do not invent parallel TODO systems.
 - **One worktree per feature.** Keeps branches isolated and review focused.
-- **Skip with a written reason.** See [Context Management](#context-management) — record the why and what was done instead, never silently skip.

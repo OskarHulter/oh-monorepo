@@ -4,11 +4,7 @@ Skills available to agents working in this repo. Each skill lives in its own dir
 
 ## Origin
 
-Most skills here are distilled from [Matt Pocock's skills repo](https://github.com/mattpocock/skills) (MIT). Each `SKILL.md` links its upstream source. Distilled means:
-
-- Same intent and process
-- Tighter wording
-- References rewired to this repo (`docs/plans/`, `docs/adr/`, beads instead of `gh issue`)
+Most skills here are distilled from [Matt Pocock's skills repo](https://github.com/mattpocock/skills) (MIT) — same intent, tighter wording, references rewired to this repo. Each `SKILL.md` links its upstream source.
 
 ## Index
 
