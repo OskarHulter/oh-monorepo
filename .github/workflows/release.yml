@@ -29,7 +29,7 @@ jobs:
           cache: true
 
       - name: Create Release Pull Request
-        uses: changesets/action@e0538b8a44d9247402592e0ce6c1e1d31bb8eed4 # v1.5.4
+        uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
         with:
           commit: 'chore(release): version packages'
           title: 'chore(release): version packages'
