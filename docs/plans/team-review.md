@@ -7,15 +7,6 @@
 
 Team review checks *fit* — product, architecture, ops, mental model — and surfaces the next round of ideas.
 
-## Who attends
-
-- Author(s)
-- At least one engineer outside the slice
-- Product or design partner if user-facing
-- Anyone who will operate or be paged on this in production
-
-Cap at six. Larger means async writeup instead.
-
 ## Format (30 minutes)
 
 1. **Demo (10 min).** Walk the feature against the PRD's success criteria. Use the actual product, not slides.
