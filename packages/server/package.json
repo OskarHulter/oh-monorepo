@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/package",
   "name": "@oh/server",
   "version": "0.0.0",
+  "private": true,
   "description": "A starter for creating a TypeScript package.",
   "homepage": "https://github.com/author/library#readme",
   "bugs": {
