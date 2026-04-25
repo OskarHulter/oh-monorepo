@@ -23,7 +23,7 @@
     "clean": "vp run -r clean",
     "prepare": "vp config && vp run website#env:typegen",
     "changeset": "vp exec changeset",
-    "version-packages": "vp exec changeset version"
+    "version": "vp exec changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
