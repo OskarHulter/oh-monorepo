@@ -52,3 +52,8 @@
 # - linear.api-key
 # - github.org
 # - github.repo
+
+# Stop auto-staging .beads/issues.jsonl on every bd write — keeps the file
+# fresh on disk for cross-machine portability without dirtying git status.
+# Stage manually when checkpointing.
+export.git-add: false
