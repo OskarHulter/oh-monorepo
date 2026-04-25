@@ -1,18 +1,38 @@
 {
+  "$schema": "https://json.schemastore.org/package",
   "name": "oh-monorepo",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://github.com/oskarhulter/oh-monorepo#readme",
+  "bugs": "https://github.com/OskarHulter/oh-monorepo/issues",
+  "author": {
+    "name": "Oskar Hulter",
+    "email": "oskarhulter@gmail.com",
+    "url": "https://oskarhulter.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oskarhulter/oh-monorepo.git"
+  },
   "type": "module",
   "scripts": {
-    "ready": "vp check && vp run -r test && vp run -r build",
+    "ready": "vp check && vp run -r test && vp run test:e2e && vp run build",
     "dev": "vp run website#dev",
+    "build": "vp run -r build",
+    "test:e2e": "vp run website#test:e2e",
+    "clean": "vp run -r clean",
     "prepare": "vp config"
   },
   "devDependencies": {
+    "@commitlint/cli": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
+    "fallow": "catalog:",
+    "rimraf": "catalog:",
+    "varlock": "catalog:",
     "vite-plus": "catalog:"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24"
   },
   "packageManager": "pnpm@10.33.2"
 }

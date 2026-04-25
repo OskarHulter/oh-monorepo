@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package",
   "name": "@oh/server",
   "version": "0.0.0",
   "description": "A starter for creating a TypeScript package.",
@@ -28,12 +29,17 @@
     "dev": "vp pack --watch",
     "test": "vp test",
     "check": "vp check",
+    "clean": "rimraf dist",
     "prepublishOnly": "vp run build"
+  },
+  "dependencies": {
+    "pino": "catalog:"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
     "@typescript/native-preview": "7.0.0-dev.20260328.1",
     "bumpp": "^11.0.1",
+    "rimraf": "catalog:",
     "typescript": "^6.0.2",
     "vite-plus": "^0.1.14"
   }
