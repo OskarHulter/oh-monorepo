@@ -9,7 +9,7 @@ Standard cycle for shipping features, refactors, and apps in this repo. Adapted 
 Most feature work fails at the seams: unclear destination, missing context, untested assumptions, late risk. This process forces decisions out of heads and into artifacts (research, PRDs, kanban, plans) so that:
 
 - **Intent is explicit before code** — the PRD is the contract, not the diff
-- **Work is parallelisable** — kanban slices let humans and agents pick up independently
+- **Work is parallelisable** — kanban captures blocking relationships
 - **Review has signal** — code review and human QA look for different failure modes
 - **Knowledge compounds** — research and ADRs outlive the branch
 
