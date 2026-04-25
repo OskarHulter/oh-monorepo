@@ -10,7 +10,7 @@ Team review checks *fit* — product, architecture, ops, mental model — and su
 ## Format (30 minutes)
 
 1. **Demo (10 min)** — walk the PRD's success criteria in the actual product, not slides.
-2. **Architecture pass (10 min)** — show the key seams: code location, dependencies, tests, logging.
+2. **Architecture pass (10 min)** — walk the code flow and the key seams.
 3. **Risks and followups (10 min)** — known limits, debt, adjacent work.
 
 ## What gets captured
