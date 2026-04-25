@@ -1,3 +1,8 @@
 {
-  "recommendations": ["VoidZero.vite-plus-extension-pack"]
+  "recommendations": [
+    "VoidZero.vite-plus-extension-pack",
+    "varlock.env-spec-language",
+    "blueglassblock.better-json5",
+    "Fallow-rs.fallow-vscode"
+  ]
 }

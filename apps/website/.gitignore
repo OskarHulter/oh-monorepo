@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+src/env.d.ts
+.vitest-attachments/
+tests/__screenshots__/
 
 # Editor directories and files
 .vscode/*

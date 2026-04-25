@@ -23,5 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# AI agent worktrees
-.claude/worktrees/
+# Worktrees (AI agents + manual)
+**/worktrees/
+.worktrees/
+
+# fallow cache
+.fallow/
