@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "@oh/website",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Oskar Hulter <stresslessness91@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OskarHulter/oh-monorepo.git",
+    "directory": "apps/website"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "tsc && vp build",
+    "preview": "vp preview",
+    "test:e2e": "vp test",
+    "env:typegen": "varlock typegen",
+    "env:check": "varlock load",
+    "clean": "rimraf dist src/env.d.ts"
+  },
+  "dependencies": {
+    "@oh/shared": "workspace:*",
+    "@varlock/vite-integration": "catalog:"
+  },
+  "devDependencies": {
+    "playwright": "catalog:",
+    "rimraf": "catalog:",
+    "typescript": "~6.0.2",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

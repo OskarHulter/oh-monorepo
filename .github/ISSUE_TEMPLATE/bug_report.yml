@@ -1,0 +1,95 @@
+name: 🐛 Bug Report
+description: Create a report to help us improve
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue :pray:.
+
+        This issue tracker is for reporting bugs found in `oh-monorepo` (https://github.com/oskarhulter/oh-monorepo).
+
+        Before submitting a new bug/issue, please check the links below to see if there is a solution or question posted there already:
+         - Open issues: https://github.com/oskarhulter/oh-monorepo/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
+         - Closed issues: https://github.com/oskarhulter/oh-monorepo/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed
+
+        The more information you fill in, the better we can help you.
+  - type: dropdown
+    id: package
+    attributes:
+      label: Which package does this relate to?
+      options:
+        - 'app: website'
+        - 'package: client'
+        - 'package: server'
+        - 'package: shared'
+        - 'package: utils'
+        - 'area: ci'
+        - 'area: config'
+        - 'area: docs'
+        - 'unsure'
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: Provide a clear and concise description of the challenge you are running into.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Reproduction
+      description: |
+        A link to a minimal reproduction is the fastest path to a fix.
+        Prefer a public repo, gist, or StackBlitz. Avoid localhost URLs.
+        Tips for a minimal reproduction: https://stackoverflow.com/help/mcve
+      placeholder: reproduction URL
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce the Bug or Issue
+      description: Describe the steps we have to take to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Provide a clear and concise description of what you expected to happen.
+      placeholder: |
+        As a user, I expected ___ behavior but I am seeing ___
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots_or_videos
+    attributes:
+      label: Screenshots or Videos
+      description: |
+        If applicable, add screenshots or a video to help explain your problem.
+        For supported file types and size limits, see:
+        https://docs.github.com/en/github/writing-on-github/working-with-advanced-formatting/attaching-files
+      placeholder: |
+        You can drag your video or image files inside of this editor ↓
+  - type: textarea
+    id: platform
+    attributes:
+      label: Platform
+      value: |
+        - vp version: [run `vp --version`]
+        - Node.js version: [e.g. 22.12.0]
+        - Package manager: [e.g. pnpm 10.33.2]
+        - OS: [e.g. macOS, Windows, Linux]
+        - Browser: [e.g. Chrome, Safari, Firefox] (if applicable)
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
