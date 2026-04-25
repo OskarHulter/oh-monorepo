@@ -14,8 +14,12 @@ dist-ssr
 
 # Generated / test artifacts (any workspace)
 **/env.d.ts
+*.tsbuildinfo
 .vitest-attachments/
 **/tests/__screenshots__/
+**/coverage/
+**/playwright-report/
+**/test-results/
 
 # Editor directories and files
 .vscode/*
