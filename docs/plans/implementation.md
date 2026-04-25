@@ -41,8 +41,6 @@ Stop and update the PRD or split the issue if you discover:
 
 ## Implementor — the Ralph Loop
 
-Pattern for running the nightshift across many ready issues without re-typing context. Two flavours share one shape; they differ in who picks the next task.
-
 - **`once.sh`** — human in the loop. One issue per run; you review the PR before the next.
 - **`afk.sh`** — autonomous. Picks the next ready issue and runs unattended.
 
@@ -62,6 +60,8 @@ claude --permission-mode acceptEdits \
 # afk.sh — same shape, plus: pick the next ready issue and re-run
 ```
 
-`--permission-mode acceptEdits` is load-bearing. Without it, the loop stalls on every Edit/Write prompt and the nightshift turns back into a dayshift. Pair it with project-scoped permission allowlists (`Edit(<repo>/**)`, `Write(<repo>/**)`) and a deny list for destructive commands (`Bash(rm *)`, force-push) so the agent has the rope it needs and not a meter more.
+### Required permissions
 
-Use `once.sh` while the prompt and acceptance criteria are still being tuned. Move to `afk.sh` once a full cycle (claim → red → green → PR → close) runs cleanly twice in a row without hand-holding. The `ralph-loop` plugin (`/ralph-loop`) is one ready-made executor for this shape.
+- **`--permission-mode acceptEdits`** — load-bearing. Without it the loop stalls on every Edit/Write prompt.
+- **Project-scoped allowlist** — `Edit(<repo>/**)`, `Write(<repo>/**)` so the agent can work without prompts inside the repo.
+- **Denylist for destructive commands** — `Bash(rm *)`, force-push, `git reset --hard`. Give the agent the rope it needs and not a meter more.
