@@ -7,10 +7,6 @@
 
 Team review checks *fit* — product, architecture, ops, mental model — and surfaces the next round of ideas.
 
-## When
-
-After human QA passes and before — or immediately after — merge to `main`. Don't wait for release; the context will have cooled.
-
 ## Who attends
 
 - Author(s)
