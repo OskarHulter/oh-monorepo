@@ -20,6 +20,11 @@ Most skills here are distilled from [Matt Pocock's skills repo](https://github.c
 
 The feature dev process that ties these together: [`docs/plans/README.md`](../../docs/plans/README.md).
 
+## How to invoke
+
+- **Claude Code:** auto-loaded — invoke via the `Skill` tool or mention by name.
+- **Other harnesses:** paste the relevant `SKILL.md` into the conversation.
+
 ## Issue tracking
 
 This repo uses [beads (`bd`)](https://github.com/steveyegge/beads) but GitHub Issues is the established alternative.
