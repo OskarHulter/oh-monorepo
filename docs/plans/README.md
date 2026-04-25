@@ -15,7 +15,32 @@ Most feature work fails at the seams: unclear destination, missing context, unte
 
 > Planning is the dayshift; implementation is the nightshift. The dayshift produces the artifacts that let the nightshift run autonomously while you sleep.
 
-Each step maps to a focused skill. Skip a step only when you can name the artifact it would have produced and why you don't need it.
+## Context Management
+
+Managing context matters more than following the steps prescriptively. Output quality declines as the window fills — by ~40% it starts dropping noticeably. The job is to compress truth and make it permanent, so the next turn doesn't have to relearn it.
+
+- **Persist what's load-bearing.** Decisions and facts go into code, an ADR, the PRD, or a beads issue — not the conversation
+- **Add an artifact only if it moves the goal forward.** More context demands more compression
+- **Avoid costly MCPs inside active loops.** Heavy tool calls drain the budget and dumb the model down for the rest of the turn
+- **Don't waste tokens on roles.** Manage what's in the window; "you are a senior engineer" doesn't help
+- **AI amplifies your thinking or its absence.** A vague PRD produces vague code
+
+### Intentional compaction template
+
+When summarising module state into the next turn, use a fixed shape so the model can scan it without reparsing:
+
+```
+Module flow
+1. <feature path> (<status>)
+2. <feature path> (<status>)
+
+References
+- <path / file / url>
+```
+
+If a step's flow isn't needed for the goal, replace its expected output with a one-paragraph summary explaining why and what you did instead. Don't silently skip — that loses the why.
+
+The Ralph Loop in [step 6](./implementation.md#implementor--the-ralph-loop) is intentional compaction in script form: each iteration starts fresh with only the standing prompt, recent commits, and ready issues. That's the shape to copy.
 
 ## The Cycle
 
@@ -55,4 +80,4 @@ Each step maps to a focused skill. Skip a step only when you can name the artifa
 - **Artifacts live in the repo.** PRDs, research, plans, ADRs all check in alongside code.
 - **Beads tracks state.** Use `bd` for issues; do not invent parallel TODO systems.
 - **One worktree per feature.** Keeps branches isolated and review focused.
-- **Skip with a reason.** Small bug fixes can skip steps 2–5; record that decision in the PR description.
+- **Skip with a written reason.** See [Context Management](#context-management) — record the why and what was done instead, never silently skip.
