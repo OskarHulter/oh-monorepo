@@ -1,10 +1,15 @@
-Distilled adaptations of skills from https://github.com/mattpocock/skills,
-licensed under the MIT License. Original copyright notice preserved below.
+Distilled adaptations of MIT-licensed upstream skills:
+
+- Most skills: https://github.com/mattpocock/skills (Matt Pocock)
+- caveman/SKILL.md: https://github.com/JuliusBrussee/caveman (Julius Brussee)
+
+Original copyright notices preserved below.
 
 ---
 
 MIT License
 
+Copyright (c) 2026 Julius Brussee
 Copyright (c) 2026 Matt Pocock
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

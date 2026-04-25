@@ -31,6 +31,9 @@ This repo uses [beads (`bd`)](https://github.com/steveyegge/beads) but GitHub Is
 
 ## Adding a skill
 
-1. Create `.claude/skills/<name>/SKILL.md` with frontmatter (`name`, `description`).
-2. Link it from this README.
-3. If it adapts an upstream skill, link the source at the top of `SKILL.md`.
+1. **Check for an installed plugin first.** If the same skill ships in a plugin you already enable (`enabledPlugins` in settings), prefer the plugin and skip authoring a project copy. A project skill with the same name shadows the plugin's version, and a thinner local copy will under-deliver.
+2. Create `.claude/skills/<name>/SKILL.md` with frontmatter (`name`, `description`).
+3. Link it from this README.
+4. If it adapts an upstream skill, link the source at the top of `SKILL.md`.
+
+> **Finding (2026-04-25):** the `caveman` plugin is installed for this user, so `.claude/skills/caveman/SKILL.md` would shadow the richer plugin version. We kept a near-verbatim copy of the upstream (minus wenyan modes) so the skill works without the plugin too — but treat this as the exception, not the pattern.
