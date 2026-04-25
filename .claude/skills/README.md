@@ -26,7 +26,7 @@ The feature dev process that ties these together: [`docs/plans/README.md`](../..
 
 ## Issue tracking
 
-This repo uses [beads (`bd`)](https://github.com/orgs/repo/beads) but GitHub Issues is a reliable fallback.
+This repo uses [beads (`bd`)](https://github.com/steveyegge/beads) but GitHub Issues is a reliable fallback.
 
 ## Adding a skill
 
