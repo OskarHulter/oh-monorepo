@@ -26,7 +26,7 @@ The feature dev process that ties these together: [`docs/plans/README.md`](../..
 
 ## Issue tracking
 
-Pocock's upstream skills create GitHub issues with `gh issue create`. This repo uses [beads (`bd`)](https://github.com/orgs/repo/beads) instead. When a skill says "file an issue," use `bd create --title="..." --description="..." --type=task|bug|feature` and reference the returned ID.
+This repo uses [beads (`bd`)](https://github.com/orgs/repo/beads) but GitHub Issues is a reliable fallback.
 
 ## Adding a skill
 
