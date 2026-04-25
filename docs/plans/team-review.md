@@ -1,6 +1,7 @@
 # Step 10 — Team Review
 
-> Output: shared understanding, captured decisions, handoff to operate/maintain.
+> **Skill:** none — process step, owned by humans. See [`.claude/skills/`](../../.claude/skills/README.md) for the skill set used in earlier steps.
+> **Output:** shared understanding, captured decisions, handoff to operate/maintain.
 
 ## Why
 

@@ -1,6 +1,7 @@
 # Step 8 — Human QA of Completed Work
 
-> Output: executed test plan, defect log, sign-off or rejection.
+> **Skill:** [`qa`](../../.claude/skills/qa/SKILL.md) — runs the interactive session and files durable issues from findings.
+> **Output:** executed test plan, defect log, sign-off or rejection. Defects feed step 9 ([`triage-issue`](../../.claude/skills/triage-issue/SKILL.md)).
 
 ## Why
 
@@ -55,7 +56,7 @@ Skipping this step is the most common cause of "shipped but broken" features.
 ## Outputs
 
 - Pass/fail decision attached to the PR.
-- A list of beads issues for any P2/P3 findings (see Step 9).
+- A list of beads issues for any P2/P3 findings — file them via the [`qa`](../../.claude/skills/qa/SKILL.md) skill, triage the deeper ones with [`triage-issue`](../../.claude/skills/triage-issue/SKILL.md) (step 9).
 - The test plan itself, checked into the PRD folder as `qa.md`, so the next reviewer sees what was already covered.
 
 ## Anti-patterns

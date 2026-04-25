@@ -1,13 +1,13 @@
 # Step 2 — Research
 
-> Output: `docs/plans/<feature>/research.md`
-> Skill: `improve-codebase-architecture`, `find-docs`, `Explore` agent
+> **Skill:** [`improve-codebase-architecture`](../../.claude/skills/improve-codebase-architecture/SKILL.md) — runs the deepening-opportunity exploration described below.
+> **Output:** `docs/plans/<feature>/research.md`.
 
 ## Why
 
-The cost of a wrong PRD is much higher than the cost of an hour of research. Research separates *what we know* from *what we assume*, and surfaces the constraints that will shape the design before they become bugs.
+A wrong PRD costs more than an hour of research. Research separates *what we know* from *what we assume*, and surfaces the constraints that will shape the design before they become bugs.
 
-Research is also the cheapest place to kill a bad idea. Many features die here once the actual surface area, prior art, or library constraints become visible — that is the point, not a failure.
+It is also the cheapest place to kill a bad idea. Many features die here once the real surface area, prior art, or library constraints become visible — that is the point, not a failure.
 
 ## When to do it
 
@@ -28,8 +28,8 @@ Keep it short. A research doc that nobody reads is worse than no doc.
 
 ## How
 
-- Use the `Explore` subagent for codebase questions that span multiple files.
-- Use `find-docs` (or Context7) for library/API questions — never guess from memory.
+- Run the [`improve-codebase-architecture`](../../.claude/skills/improve-codebase-architecture/SKILL.md) skill — it drives the exploration, the deletion test, and the candidate list.
+- Use `find-docs` (or Context7) for library and API questions — never guess from memory.
 - Reference exact file paths with line numbers (`src/foo.ts:42`) so the PRD can cite them.
 - Stop when the next finding would not change the recommendation.
 
