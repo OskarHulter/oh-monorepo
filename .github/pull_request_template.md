@@ -29,10 +29,11 @@ Keep the title short (<70 chars). Details go in the body.
 
 <!-- How did you verify this? Commands run, screenshots, reproduction steps. -->
 
-- [ ] `vp check` passes
+- [ ] `vp check --fix` passes
 - [ ] `vp run -r test` passes
 - [ ] `vp run -r build` passes
 - [ ] Manually verified in the affected app (if UI change)
+- [ ] PRD/research updated if implementation diverged (or N/A)
 
 ## Notes for reviewers
 

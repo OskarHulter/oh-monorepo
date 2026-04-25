@@ -39,8 +39,10 @@ dist-ssr
 # fallow cache
 .fallow/
 
-# AI agent local state
-.claude/
+# AI agent local state — local settings/state ignored, but project-level
+# skills under .claude/skills/ are checked in.
+.claude/*
+!.claude/skills/
 .gemini/
 
 # GitHub App credentials
