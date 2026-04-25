@@ -45,6 +45,12 @@ Stop and update the PRD or split the issue if you discover:
 
 Each run feeds Claude the same three things: the standing prompt, recent commit history (for continuity), and the issues to work.
 
+`ralph/prompt.md` should contain:
+
+- **Goal** — claim the highest-priority ready beads issue and ship it as a merged PR.
+- **Constraints** — follow the [`tdd`](../../.claude/skills/tdd/SKILL.md) skill, surgical changes only, [verification checklist](#verification-checklist) must pass.
+- **Stop conditions** — comment on the issue and exit if the PRD is contradicted, the slice is >2x estimate, or a blocking dependency was missed.
+
 ```bash
 # once.sh — human in the loop
 issues=$(cat issues/*.md)                                  # ready beads, exported
@@ -64,3 +70,7 @@ claude --permission-mode acceptEdits \
 - **`--permission-mode acceptEdits`** — load-bearing. Without it the loop stalls on every Edit/Write prompt.
 - **Project-scoped allowlist** — `Edit(<repo>/**)`, `Write(<repo>/**)` so the agent can work without prompts inside the repo.
 - **Denylist for destructive commands** — `Bash(rm *)`, force-push, `git reset --hard`. Give the agent the rope it needs and not a meter more.
+
+### On failure
+
+- **Red CI on the agent's PR** — stop the loop, file a triage issue (`/triage-issue`), do not retry. The next run picks up after the human signs off.

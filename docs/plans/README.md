@@ -4,6 +4,8 @@ Standard cycle for shipping features, refactors, and apps in this repo. Adapted 
 
 > **Skills live in [`.claude/skills/`](../../.claude/skills/README.md).** Each step below links the skill that runs it. The plan docs cover *when* and *why* to use a step in the cycle; the SKILL.md covers *how*.
 
+> **Start a new feature:** create `docs/plans/<feature>/research.md` and run [`improve-codebase-architecture`](../../.claude/skills/improve-codebase-architecture/SKILL.md). Resuming an existing feature: open the latest artifact under `docs/plans/<feature>/` and follow [the cycle](#the-cycle) from there.
+
 ## Why
 
 Most feature work fails at the seams: unclear destination, missing context, untested assumptions, late risk. This process forces decisions out of heads and into artifacts (research, PRDs, kanban, plans) so that:
@@ -70,6 +72,19 @@ If you skip the expected action for any reason, describe why and what you did in
 10. **[Team Review](./team-review.md)**
     - Skill: none — process step, owned by humans.
     - Output: demo, decisions captured, handoff.
+
+## Artifact layout
+
+```
+docs/plans/<feature>/
+  research.md      # step 2
+  prd.md           # step 4
+  qa.md            # step 8 — test plan + execution log
+  team-review.md   # step 10
+docs/adr/NNNN-<slug>.md  # design decisions, any step
+```
+
+Beads issues live alongside the code in `.beads/`; reference them by ID from PRs and artifacts.
 
 ## Rules
 
