@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Generated / test artifacts (any workspace)
+**/src/env.d.ts
+.vitest-attachments/
+**/tests/__screenshots__/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -29,3 +34,6 @@ dist-ssr
 
 # fallow cache
 .fallow/
+
+# AI agent local state
+.claude/
