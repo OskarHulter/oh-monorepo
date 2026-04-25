@@ -4,6 +4,14 @@ import { playwright } from 'vite-plus/test/browser-playwright'
 
 export default defineConfig({
   plugins: [varlockVitePlugin()],
+  run: {
+    tasks: {
+      'env:typegen': {
+        command: 'varlock typegen',
+        cache: false,
+      },
+    },
+  },
   test: {
     browser: {
       enabled: true,
