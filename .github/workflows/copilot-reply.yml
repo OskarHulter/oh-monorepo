@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: copilot-reply-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
 jobs:
   triage:
     if: github.event.review.user.login == 'copilot-pull-request-reviewer[bot]' || github.event.review.user.login == 'Copilot'
@@ -14,6 +18,8 @@ jobs:
     permissions:
       pull-requests: write
       models: read
+    env:
+      MAX_ITER: '5'
     steps:
       - id: input
         env:
@@ -34,6 +40,15 @@ jobs:
           comment-author: github-actions[bot]
           body-includes: '<!-- copilot-reply-bot -->'
 
+      - id: iter
+        env:
+          PREV_BODY: ${{ steps.find.outputs.comment-body }}
+        run: |
+          n=$(printf '%s' "$PREV_BODY" | grep -oE 'iter=[0-9]+' | tail -1 | grep -oE '[0-9]+' || true)
+          n=${n:-0}
+          echo "prev=$n" >> "$GITHUB_OUTPUT"
+          echo "next=$((n+1))" >> "$GITHUB_OUTPUT"
+
       - id: evaluate
         uses: actions/ai-inference@e09e65981758de8b2fdab13c2bfb7c7d5493b0b6 # v2.0.7
         with:
@@ -50,13 +65,45 @@ jobs:
             ${{ steps.input.outputs.review_body }}
           max-tokens: 8
 
+      - id: decide
+        env:
+          VERDICT: ${{ steps.evaluate.outputs.response }}
+          ITER: ${{ steps.iter.outputs.next }}
+        run: |
+          v=$(printf '%s' "$VERDICT" | tr -d '[:space:]' | tr '[:lower:]' '[:upper:]')
+          if [ "$ITER" -gt "$MAX_ITER" ]; then
+            action=skip; reason="iteration cap reached ($MAX_ITER)"
+          elif [ "$v" = "ACK" ]; then
+            action=skip; reason="approval — loop done"
+          elif [ "$v" = "BLOCKER" ]; then
+            action=fix; reason="blocker — dispatching Copilot Coding Agent"
+          else
+            action=skip; reason="nit — no auto-fix"
+          fi
+          {
+            echo "action=$action"
+            echo "reason=$reason"
+            echo "verdict=$v"
+          } >> "$GITHUB_OUTPUT"
+
+      - if: steps.decide.outputs.action == 'fix'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh pr edit "$PR" --add-assignee Copilot || echo "::warning::could not assign Copilot (org policy?)"
+          gh api -X POST "repos/$REPO/pulls/$PR/requested_reviewers" \
+            -f 'reviewers[]=Copilot' || echo "::warning::could not re-request Copilot review"
+
       - uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5
         with:
           comment-id: ${{ steps.find.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           edit-mode: replace
           body: |
-            <!-- copilot-reply-bot -->
-            **Copilot review triage:** `${{ steps.evaluate.outputs.response }}`
-
-            Review state: `${{ steps.input.outputs.review_state }}`
+            <!-- copilot-reply-bot iter=${{ steps.iter.outputs.next }} -->
+            **Copilot review triage:** `${{ steps.decide.outputs.verdict }}`
+            **Iteration:** `${{ steps.iter.outputs.next }} / ${{ env.MAX_ITER }}`
+            **Action:** `${{ steps.decide.outputs.action }}` — ${{ steps.decide.outputs.reason }}
+            **Review state:** `${{ steps.input.outputs.review_state }}`
