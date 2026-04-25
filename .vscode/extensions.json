@@ -3,6 +3,7 @@
     "VoidZero.vite-plus-extension-pack",
     "varlock.env-spec-language",
     "blueglassblock.better-json5",
-    "Fallow-rs.fallow-vscode"
+    "Fallow-rs.fallow-vscode",
+    "zizmor.zizmor-vscode"
   ]
 }
