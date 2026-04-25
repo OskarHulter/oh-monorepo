@@ -46,20 +46,8 @@ jobs:
           MULTI_STATUS: false
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' }}
-          # vp handles JS/TS/JSX/TSX/JSON via oxlint/oxfmt — disable here
-          VALIDATE_JAVASCRIPT_ES: false
-          VALIDATE_JAVASCRIPT_STANDARD: false
-          VALIDATE_JAVASCRIPT_PRETTIER: false
-          VALIDATE_TYPESCRIPT_ES: false
-          VALIDATE_TYPESCRIPT_STANDARD: false
-          VALIDATE_TYPESCRIPT_PRETTIER: false
-          VALIDATE_JSON: false
-          VALIDATE_JSON_PRETTIER: false
-          VALIDATE_JSX: false
-          VALIDATE_JSX_PRETTIER: false
-          VALIDATE_TSX: false
-          VALIDATE_NATURAL_LANGUAGE: false
-          # Lint what vp does not cover
+          # Whitelist mode — vp covers JS/TS/JSX/TSX/JSON via oxlint/oxfmt,
+          # so only enable linters that fill gaps vp does not.
           VALIDATE_CSS: true
           VALIDATE_CSS_PRETTIER: true
           VALIDATE_HTML: true
