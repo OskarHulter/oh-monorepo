@@ -5,7 +5,7 @@
 
 ## Why
 
-Code review checks the diff. Human QA checks the experience. Team review checks the *fit* — into the product, the architecture, the operational story, and the team's mental model. It is also where the next round of ideas surfaces, since demoing finished work exposes adjacent problems.
+Team review checks *fit* — product, architecture, ops, mental model — and surfaces the next round of ideas.
 
 ## When
 
