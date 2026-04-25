@@ -41,3 +41,15 @@ dist-ssr
 
 # GitHub App credentials
 gha-creds-*.json
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+
+# Env files (varlock — never commit secrets)
+.env
+.env.*
+!.env.schema
+!.env.schema.*
+!.env.example
