@@ -38,7 +38,7 @@ References
 - <path / file / url>
 ```
 
-If you skip the expected action for any reason, describe why and what you did instead in 1-2 paragraphs.
+If you skip the expected action for any reason, describe why and what you did in 1-2 paragraphs.
 
 ## The Cycle
 
