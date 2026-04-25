@@ -5,6 +5,8 @@ description: Interactive QA session — user reports problems conversationally, 
 
 > Adapted from [mattpocock/skills/qa](https://github.com/mattpocock/skills/blob/main/qa/SKILL.md). MIT.
 
+> **Mode:** agent-only chat (Ralph Loop, headless run, dispatched subagent) → `caveman full`. Human present → project default.
+
 Run an interactive QA session. The user describes what they hit; you clarify briefly, learn the area in the background, and file durable issues that survive future refactors.
 
 ## Per problem

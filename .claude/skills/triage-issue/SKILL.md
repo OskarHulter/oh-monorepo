@@ -5,6 +5,8 @@ description: Triage a defect by exploring the codebase to find root cause, then 
 
 > Adapted from [mattpocock/skills/triage-issue](https://github.com/mattpocock/skills/blob/main/triage-issue/SKILL.md). MIT.
 
+> **Mode:** agent-only chat (Ralph Loop, headless run, dispatched subagent) → `caveman full`. Human present → project default.
+
 Investigate a reported problem, find its root cause, and file an issue with a red-green-refactor fix plan. Mostly hands-off — minimise questions to the user.
 
 ## Process

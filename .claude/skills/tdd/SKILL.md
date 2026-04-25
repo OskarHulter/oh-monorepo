@@ -5,6 +5,8 @@ description: Test-driven development by tracer bullet — one test, one impl, re
 
 > Adapted from [mattpocock/skills/tdd](https://github.com/mattpocock/skills/blob/main/tdd/SKILL.md). MIT.
 
+> **Mode:** agent-only chat (Ralph Loop, headless run, dispatched subagent) → `caveman full`. Human present → project default.
+
 Build behaviour one slice at a time. Each red-green-refactor cycle is a tracer bullet through the whole stack.
 
 ## What good tests look like
