@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
-  "author": "Author Name <author.name@mail.com>",
+  "author": "Oskar Hulter <stresslessness91@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/OskarHulter/oh-monorepo.git",
+    "directory": "packages/server"
   },
   "files": [
     "dist"

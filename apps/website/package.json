@@ -3,6 +3,12 @@
   "name": "@oh/website",
   "version": "0.0.0",
   "private": true,
+  "author": "Oskar Hulter <stresslessness91@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OskarHulter/oh-monorepo.git",
+    "directory": "apps/website"
+  },
   "type": "module",
   "scripts": {
     "dev": "vp dev",
