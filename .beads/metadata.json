@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "oh_monorepo",
+  "project_id": "3e3467a6-2b2c-4e63-bbb9-f440aa4c9201"
+}

@@ -41,3 +41,8 @@ dist-ssr
 
 # GitHub App credentials
 gha-creds-*.json
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
