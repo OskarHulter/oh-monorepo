@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '08:00'
+      timezone: Europe/Copenhagen
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: ci
+      include: scope
+    groups:
+      actions-minor-patch:
+        update-types: [minor, patch]
+    ignore:
+      # Toolchain owner — bumps are coupled to local vp version. Manual control.
+      - dependency-name: voidzero-dev/setup-vp
+      # Gemini agent behavior changes between minors. Pin manually.
+      - dependency-name: google-github-actions/run-gemini-cli
