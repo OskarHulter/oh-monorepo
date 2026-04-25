@@ -47,12 +47,10 @@ Skipping this step is the most common cause of "shipped but broken" features.
 
 ## Severity guide
 
-| Severity | Meaning | Action |
-|----------|---------|--------|
-| P0 | Blocks the feature or breaks something else | Fix before merge |
-| P1 | User-visible defect on the golden path | Fix before merge |
-| P2 | Edge case or polish | File issue, may ship |
-| P3 | Nice-to-have | File issue, ship |
+- **P0** — blocks the feature or breaks something else. Fix before merge.
+- **P1** — user-visible defect on the golden path. Fix before merge.
+- **P2** — edge case or polish. File issue, may ship.
+- **P3** — nice-to-have. File issue, ship.
 
 ## Outputs
 

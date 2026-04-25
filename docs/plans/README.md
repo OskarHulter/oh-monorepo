@@ -15,18 +15,34 @@ Each step maps to a focused skill. Skip a step only when you can name the artifa
 
 ## The Cycle
 
-| # | Step | Output | Skill |
-|---|------|--------|-------|
-| 1 | Idea | Sentence describing the problem and rough shape | `superpowers:brainstorming`, `superpowers:grill-me` |
-| 2 | [Research](./research.md) | `research.md` with findings, constraints, prior art | `improve-codebase-architecture`, `find-docs` |
-| 3 | Prototype | Throwaway spike or assets for the PRD | `design-an-interface` |
-| 4 | PRD | `prd.md` describing the destination, not the path | `write-a-prd` |
-| 5 | Kanban | Independently-grabbable issues with dependencies | `prd-to-issues` |
-| 6 | [Implementation](./implementation.md) | Code, tests, ADRs | `prd-to-plan`, `superpowers:tdd` |
-| 7 | Code Review | Diff-level feedback on gaps, risks, design | `brooks-lint:brooks-review`, `pr-review-toolkit:review-pr` |
-| 8 | [Human QA](./human-qa-of-completed-work.md) | Test plan executed by a human | — |
-| 9 | QA Followups | New issues for defects and gaps | `triage-issue` |
-| 10 | [Team Review](./team-review.md) | Demo, decisions captured, handoff | — |
+1. **Idea**
+   - Output: one sentence describing the problem and rough shape.
+   - Skills: `superpowers:brainstorming`, `superpowers:grill-me`.
+2. **[Research](./research.md)**
+   - Output: `research.md` with findings, constraints, prior art.
+   - Skills: `improve-codebase-architecture`, `find-docs`.
+3. **Prototype**
+   - Output: throwaway spike or assets for the PRD.
+   - Skill: `design-an-interface`.
+4. **PRD**
+   - Output: `prd.md` describing the destination, not the path.
+   - Skill: `write-a-prd`.
+5. **Kanban**
+   - Output: independently-grabbable issues with dependencies.
+   - Skill: `prd-to-issues`.
+6. **[Implementation](./implementation.md)**
+   - Output: code, tests, ADRs.
+   - Skills: `prd-to-plan`, `superpowers:tdd`.
+7. **Code Review**
+   - Output: diff-level feedback on gaps, risks, design.
+   - Skills: `brooks-lint:brooks-review`, `pr-review-toolkit:review-pr`.
+8. **[Human QA](./human-qa-of-completed-work.md)**
+   - Output: test plan executed by a human.
+9. **QA Followups**
+   - Output: new issues for defects and gaps.
+   - Skill: `triage-issue`.
+10. **[Team Review](./team-review.md)**
+    - Output: demo, decisions captured, handoff.
 
 ## Rules
 
