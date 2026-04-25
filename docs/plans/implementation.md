@@ -12,7 +12,7 @@ The nightshift. The dayshift artifacts (research, PRD, kanban) exist so this ste
 1. **Claim it** — `bd update <id> --claim`
 2. **Worktree it** — one worktree per slice, branched from `main`
 3. **Run [`tdd`](../../.claude/skills/tdd/SKILL.md)** — plan behaviours, then loop tracer bullets: red, green, repeat. Refactor only on green.
-4. **Verify** — `vp check` and `vp test` must pass before declaring done
+4. **Verify** — `vp check --fix` must pass before declaring done
 5. **ADR if non-obvious** — record significant design decisions under `docs/adr/`
 6. **Open PR** referencing the beads ID; description states user-facing effect
 7. **Close** with `bd close <id>` after merge
@@ -20,7 +20,7 @@ The nightshift. The dayshift artifacts (research, PRD, kanban) exist so this ste
 ## Surgical changes
 
 - Touch only files this slice requires
-- Match existing style; run `vp fmt` and `vp lint`
+- Match existing style; run `vp check --fix`
 - No drive-by refactors — file a separate issue
 - Delete dead code instead of leaving compat shims
 
@@ -34,8 +34,7 @@ Stop and update the PRD or split the issue if you discover:
 
 ## Verification checklist
 
-- [ ] `vp check` passes
-- [ ] `vp test` passes
+- [ ] `vp check --fix` passes
 - [ ] New behaviour covered by a test
 - [ ] No unrelated changes in the diff
 - [ ] PR description states the user-facing effect
