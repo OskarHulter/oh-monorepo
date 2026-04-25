@@ -1,0 +1,62 @@
+name: Copilot Reply
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+
+jobs:
+  triage:
+    if: github.event.review.user.login == 'copilot-pull-request-reviewer[bot]' || github.event.review.user.login == 'Copilot'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      models: read
+    steps:
+      - id: input
+        env:
+          REVIEW_BODY: ${{ github.event.review.body }}
+          REVIEW_STATE: ${{ github.event.review.state }}
+        run: |
+          {
+            echo "review_state=$REVIEW_STATE"
+            echo 'review_body<<EOF'
+            printf '%s\n' "$REVIEW_BODY"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - id: find
+        uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: github-actions[bot]
+          body-includes: '<!-- copilot-reply-bot -->'
+
+      - id: evaluate
+        uses: actions/ai-inference@e09e65981758de8b2fdab13c2bfb7c7d5493b0b6 # v2.0.7
+        with:
+          model: openai/gpt-4o-mini
+          system-prompt: |
+            You triage GitHub Copilot's PR review comments. Read the review body
+            and classify it as one of: BLOCKER (security/correctness/breaking),
+            NIT (style/preference/minor), or ACK (general approval/no concerns).
+            Reply with only the single word, no punctuation, no markdown.
+          prompt: |
+            Review state: ${{ steps.input.outputs.review_state }}
+
+            Review body:
+            ${{ steps.input.outputs.review_body }}
+          max-tokens: 8
+
+      - uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5
+        with:
+          comment-id: ${{ steps.find.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace
+          body: |
+            <!-- copilot-reply-bot -->
+            **Copilot review triage:** `${{ steps.evaluate.outputs.response }}`
+
+            Review state: `${{ steps.input.outputs.review_state }}`
