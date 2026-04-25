@@ -38,6 +38,8 @@ References
 - <path / file / url>
 ```
 
+Use at the top of a new session, or save as `docs/plans/<feature>/compaction.md` for handoff.
+
 If you skip the expected action for any reason, describe why and what you did in 1-2 paragraphs.
 
 ## The Cycle

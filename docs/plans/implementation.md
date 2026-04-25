@@ -11,6 +11,7 @@ Every change justified by an issue, every issue closed by a green test, every sl
 
 1. **Claim it** — `bd update <id> --claim`
 2. **Worktree it** — one worktree per slice, branched from `main`
+   `git worktree add -b feat/<slice> ../oh-monorepo-<slice> main`
 3. **Run [`tdd`](../../.claude/skills/tdd/SKILL.md)** — plan behaviours, then loop tracer bullets: red, green, repeat. Refactor only on green.
 4. **Verify** — `vp check --fix` must pass before declaring done
 5. **ADR if non-obvious** — record significant design decisions under `docs/adr/`
@@ -44,6 +45,8 @@ Stop and update the PRD or split the issue if you discover:
 - **`afk.sh`** — autonomous. Picks the next ready issue and runs unattended.
 
 Each run feeds Claude the same three things: the standing prompt, recent commit history (for continuity), and the issues to work.
+
+> **Future work** — `once.sh` and `afk.sh` are not shipped in this repo. The `ralph-loop` plugin (`/ralph-loop`) is one ready-made executor; the shape below sketches what to wire up if you build your own.
 
 `ralph/prompt.md` should contain:
 

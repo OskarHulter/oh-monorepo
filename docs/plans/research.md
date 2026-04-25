@@ -11,7 +11,7 @@ A wrong PRD costs more than an hour of research. Research is also the cheapest p
 
 - New features touching unfamiliar code
 - First-time integration with a third-party library or service
-- Skip for trivial fixes; note the skip in the PR
+- Skip for typos, copy changes, single-file fixes, or dep bumps; note the skip in the PR
 
 ## What to capture
 
