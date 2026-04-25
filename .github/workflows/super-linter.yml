@@ -44,6 +44,7 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           MULTI_STATUS: false
+          ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' }}
           # vp handles JS/TS/JSX/TSX/JSON via oxlint/oxfmt — disable here
           VALIDATE_JAVASCRIPT_ES: false
