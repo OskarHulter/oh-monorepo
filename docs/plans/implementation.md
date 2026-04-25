@@ -53,7 +53,7 @@ Each run feeds Claude the same three things: the standing prompt, recent commit 
 - **Goal** — claim the highest-priority ready beads issue and ship it as a merged PR.
 - **Constraints** — follow the [`tdd`](../../.claude/skills/tdd/SKILL.md) skill, surgical changes only, [verification checklist](#verification-checklist) must pass.
 - **Stop conditions** — comment on the issue and exit if the PRD is contradicted, the slice is >2x estimate, or a blocking dependency was missed.
-- **Communication** — respond in `caveman full` for the duration of the run. Issues, PR bodies, commits, and code stay normal prose (caveman Boundaries handles this).
+- **Communication** — respond in `caveman full` for the duration of the run.
 
 ```bash
 # once.sh — human in the loop
