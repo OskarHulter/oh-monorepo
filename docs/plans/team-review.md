@@ -5,7 +5,7 @@
 
 ## Why
 
-Team review checks *fit* — product, architecture, ops, mental model — and surfaces the next round of ideas.
+Team review checks _fit_ — product, architecture, ops, mental model — and surfaces the next round of ideas.
 
 ## Format (30 minutes)
 

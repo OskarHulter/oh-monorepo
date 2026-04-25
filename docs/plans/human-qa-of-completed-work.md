@@ -5,7 +5,7 @@
 
 ## Why
 
-Tests verify the code is *correct*. Human QA verifies the feature is *right* — that the destination in the PRD has actually been reached. Skipping it is the most common cause of "shipped but broken."
+Tests verify the code is _correct_. Human QA verifies the feature is _right_ — that the destination in the PRD has actually been reached. Skipping it is the most common cause of "shipped but broken."
 
 ## Who runs it
 
@@ -23,15 +23,19 @@ Tests verify the code is *correct*. Human QA verifies the feature is *right* —
 
 ```markdown
 ## Golden path
+
 - [ ] <step-by-step user flow that should succeed>
 
 ## Edge cases
+
 - [ ] <empty state, max input, slow network, etc.>
 
 ## Regression
+
 - [ ] <related features that could break>
 
 ## Cross-cutting
+
 - [ ] Accessibility (keyboard, screen reader)
 - [ ] Mobile/responsive
 - [ ] Auth/permission boundaries

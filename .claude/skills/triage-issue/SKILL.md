@@ -75,7 +75,7 @@ Do not ask the user to review the body first. File and share the ID.
    **GREEN**: <minimal change>
 2. **RED**: <next behaviour>
    **GREEN**: <minimal change>
-...
+   ...
 
 **REFACTOR**: <cleanup after all tests green, or omit>
 

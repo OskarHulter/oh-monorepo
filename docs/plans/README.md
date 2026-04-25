@@ -2,7 +2,7 @@
 
 Standard cycle for shipping features, refactors, and apps in this repo. Adapted from Matt Pocock's skill-driven workflow ([source](https://github.com/mattpocock/skills)).
 
-> **Skills live in [`.claude/skills/`](../../.claude/skills/README.md).** Each step below links the skill that runs it. The plan docs cover *when* and *why* to use a step in the cycle; the SKILL.md covers *how*.
+> **Skills live in [`.claude/skills/`](../../.claude/skills/README.md).** Each step below links the skill that runs it. The plan docs cover _when_ and _why_ to use a step in the cycle; the SKILL.md covers _how_.
 
 > **Start a new feature:** create `docs/plans/<feature>/research.md` and run [`improve-codebase-architecture`](../../.claude/skills/improve-codebase-architecture/SKILL.md). Resuming an existing feature: open the latest artifact under `docs/plans/<feature>/` and follow [the cycle](#the-cycle) from there.
 
