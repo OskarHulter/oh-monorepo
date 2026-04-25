@@ -16,4 +16,4 @@ Team review checks *fit* — product, architecture, ops, mental model — and su
 ## Output
 
 - **Open questions** — with named owners
-- **Next steps** — issues or tactical actions aligned with the goal
+- **Next steps** — followup issues or suggested actions
