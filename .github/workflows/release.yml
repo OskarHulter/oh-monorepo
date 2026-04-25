@@ -23,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: voidzero-dev/setup-vp@v1
+      - uses: voidzero-dev/setup-vp@b69666a3d815beb21ce968bbfc9c17e63973986b # v1.8.0
         with:
           cache: true
 
