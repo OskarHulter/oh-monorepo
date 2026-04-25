@@ -1,0 +1,41 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+
+categories:
+  - title: '🚀 Features'
+    labels: ['enhancement', 'feature']
+  - title: '🐛 Fixes'
+    labels: ['bug', 'fix']
+  - title: '🧰 Maintenance'
+    labels: ['area: ci', 'area: config', 'area: deps', 'chore', 'refactor']
+  - title: '📝 Docs'
+    labels: ['area: docs', 'documentation']
+  - title: '📦 Packages'
+    labels:
+      - 'package: client'
+      - 'package: server'
+      - 'package: shared'
+      - 'package: utils'
+      - 'app: website'
+
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-title-escapes: '\<*_&'
+
+version-resolver:
+  major:
+    labels: ['breaking']
+  minor:
+    labels: ['enhancement', 'feature']
+  patch:
+    labels: ['bug', 'fix', 'chore', 'refactor', 'documentation']
+  default: patch
+
+exclude-labels:
+  - 'skip-changelog'
+
+template: |
+  ## What's Changed
+
+  $CHANGES
+
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION

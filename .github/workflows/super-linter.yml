@@ -1,0 +1,102 @@
+name: Super-Linter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - id: can_autofix
+        env:
+          EVENT: ${{ github.event_name }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          if [ "$EVENT" = "push" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT" = "pull_request" ] && [ "$HEAD_REPO" = "$REPO" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          filter: tree:0
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+
+      - uses: super-linter/super-linter/slim@9e863354e3ff62e0727d37183162c4a88873df41 # v8.6.0
+        env:
+          DEFAULT_BRANCH: main
+          MULTI_STATUS: false
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' }}
+          # vp handles JS/TS/JSX/TSX/JSON via oxlint/oxfmt — disable here
+          VALIDATE_JAVASCRIPT_ES: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_JAVASCRIPT_PRETTIER: false
+          VALIDATE_TYPESCRIPT_ES: false
+          VALIDATE_TYPESCRIPT_STANDARD: false
+          VALIDATE_TYPESCRIPT_PRETTIER: false
+          VALIDATE_JSON: false
+          VALIDATE_JSON_PRETTIER: false
+          VALIDATE_JSX: false
+          VALIDATE_JSX_PRETTIER: false
+          VALIDATE_TSX: false
+          VALIDATE_NATURAL_LANGUAGE: false
+          # Lint what vp does not cover
+          VALIDATE_CSS: true
+          VALIDATE_CSS_PRETTIER: true
+          VALIDATE_HTML: true
+          VALIDATE_HTML_PRETTIER: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_MARKDOWN_PRETTIER: true
+          VALIDATE_YAML: true
+          VALIDATE_YAML_PRETTIER: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: true
+          VALIDATE_BASH: true
+          VALIDATE_SHELL_SHFMT: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_EDITORCONFIG: true
+          VALIDATE_GITLEAKS: true
+          # Autofix — enabled when the PR branch is in this repo (not a fork)
+          APPLY_FIXES: ${{ steps.can_autofix.outputs.enabled == 'true' && 'all' || 'none' }}
+          FIX_CSS_PRETTIER: ${{ steps.can_autofix.outputs.enabled == 'true' }}
+          FIX_HTML_PRETTIER: ${{ steps.can_autofix.outputs.enabled == 'true' }}
+          FIX_MARKDOWN: ${{ steps.can_autofix.outputs.enabled == 'true' }}
+          FIX_MARKDOWN_PRETTIER: ${{ steps.can_autofix.outputs.enabled == 'true' }}
+          FIX_YAML_PRETTIER: ${{ steps.can_autofix.outputs.enabled == 'true' }}
+          FIX_SHELL_SHFMT: ${{ steps.can_autofix.outputs.enabled == 'true' }}
+          FILTER_REGEX_EXCLUDE: (node_modules|dist|\.vite-hooks|pnpm-lock\.yaml|src/env\.d\.ts)
+
+      - name: Push autofixes
+        if: steps.can_autofix.outputs.enabled == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No autofixes to push"
+            exit 0
+          fi
+          git config user.name "super-linter-bot"
+          git config user.email "super-linter-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "chore(ci): apply super-linter autofixes"
+          AUTH_HEADER="Authorization: Basic $(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64)"
+          git -c http."https://github.com/".extraheader="$AUTH_HEADER" push origin "HEAD:$BRANCH"
