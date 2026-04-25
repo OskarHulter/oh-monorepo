@@ -5,47 +5,38 @@ description: Interactive QA session — user reports problems conversationally, 
 
 > Adapted from [mattpocock/skills/qa](https://github.com/mattpocock/skills/blob/main/qa/SKILL.md). MIT.
 
-Run an interactive QA session. The user describes what they hit; you clarify briefly, learn the relevant area in the background, and file durable issues that survive future refactors.
+Run an interactive QA session. The user describes what they hit; you clarify briefly, learn the area in the background, and file durable issues that survive future refactors.
 
-## For each problem the user raises
+## Per problem
 
 ### 1. Listen, lightly clarify
 
-Let them describe it in their own words. Ask **at most 2–3 short clarifying questions**:
+At most 2–3 short questions:
 
-- Expected vs. actual.
-- Repro steps if not obvious.
-- Consistent or intermittent.
+- Expected vs. actual
+- Repro steps if not obvious
+- Consistent or intermittent
 
 If the description is filable, stop asking.
 
-### 2. Background-explore the codebase
+### 2. Background-explore
 
-Kick off an `Explore` subagent in parallel with the conversation. Goal is **not** to find a fix — it is to:
+Kick off an `Explore` subagent in parallel. Goal is **not** to find a fix — it is to:
 
-- Pick up the domain language used in that area (`UBIQUITOUS_LANGUAGE.md` or `CONTEXT.md` if present).
-- Understand what the feature is meant to do.
-- Find the user-facing behaviour boundary.
+- Pick up the domain language used in that area (`UBIQUITOUS_LANGUAGE.md`, `CONTEXT.md`)
+- Understand what the feature is meant to do
+- Find the user-facing behaviour boundary
 
-That context shapes the issue. The issue itself stays free of file paths and internal details.
+Use that context in the issue. Keep the issue itself free of file paths.
 
 ### 3. Single issue or breakdown?
 
-**Break down** when:
+- **Break down** when the problem spans independent areas, or has separable failure modes
+- **Keep single** when one behaviour is wrong in one place
 
-- The problem spans independent areas anyone could grab in parallel.
-- There are clearly separable failure modes.
+### 4. File with `bd`
 
-**Keep it single** when:
-
-- One behaviour is wrong in one place.
-- All symptoms trace to one root cause.
-
-### 4. File issues with `bd`
-
-Do not ask the user to review first — file and share IDs.
-
-Single issue body:
+Don't ask the user to review first — file and share IDs.
 
 ```markdown
 ## What happened
@@ -58,36 +49,35 @@ Single issue body:
 
 ## Steps to reproduce
 
-1. <concrete numbered steps in domain terms, no module names>
+1. <concrete numbered steps in domain terms>
 2. ...
-3. ...
 
 ## Additional context
 
-<observations from the user or background exploration, in domain language; no file paths>
+<observations from user or background exploration; domain language; no file paths>
 ```
 
-For a breakdown, use the same body per sub-issue plus:
+For breakdowns, add per sub-issue:
 
 ```markdown
 ## Parent
 
-beads-<id> (or "Reported during QA session" if no tracking issue exists).
+beads-<id> (or "Reported during QA session")
 
 ## Blocked by
 
-- beads-<id>  (or "None — can start immediately")
+- beads-<id> (or "None — can start immediately")
 ```
 
-Create blockers first so dependents can reference real IDs. Use `bd dep add` to wire blocking relationships.
+Create blockers first; wire dependencies with `bd dep add`.
 
 ### 5. Rules for every issue
 
-- **No file paths or line numbers** — they rot.
-- **Use domain language** the project already uses.
-- **Describe behaviour, not code** — "the sync service drops the patch," not "applyPatch() throws on line 42."
-- **Repro steps are mandatory.** If you cannot determine them, ask.
-- **30-second read.** A developer should be able to understand it that fast.
+- No file paths or line numbers
+- Use the project's domain language
+- Describe behaviour, not code
+- Repro steps mandatory — ask if you can't determine them
+- 30-second read
 
 ### 6. Continue
 

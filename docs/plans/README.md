@@ -6,14 +6,16 @@ Standard cycle for shipping features, refactors, and apps in this repo. Adapted 
 
 ## Why
 
-Most feature work fails not at the keyboard but at the seams: unclear destination, missing context, untested assumptions, late discovery of risk. This process forces decisions out of heads and into artifacts (research notes, PRDs, kanban issues, plans) so that:
+Most feature work fails at the seams: unclear destination, missing context, untested assumptions, late risk. This process forces decisions out of heads and into artifacts (research, PRDs, kanban, plans) so that:
 
-- **Intent is explicit before code** — the PRD is the contract, not the diff.
-- **Work is parallelizable** — kanban issues from a PRD let humans and agents pick up slices independently.
-- **Review has signal** — code review and human QA each look for different failure modes.
-- **Knowledge compounds** — research and ADRs outlive the branch.
+- **Intent is explicit before code** — the PRD is the contract, not the diff
+- **Work is parallelisable** — kanban slices let humans and agents pick up independently
+- **Review has signal** — code review and human QA look for different failure modes
+- **Knowledge compounds** — research and ADRs outlive the branch
 
-Each step maps to a focused skill. Skip a step only when you can name the artifact it would have produced and why you do not need it.
+> Planning is the dayshift; implementation is the nightshift. The dayshift produces the artifacts that let the nightshift run autonomously while you sleep.
+
+Each step maps to a focused skill. Skip a step only when you can name the artifact it would have produced and why you don't need it.
 
 ## The Cycle
 

@@ -1,25 +1,23 @@
 # Step 8 — Human QA of Completed Work
 
-> **Skill:** [`qa`](../../.claude/skills/qa/SKILL.md) — runs the interactive session and files durable issues from findings.
+> **Skill:** [`qa`](../../.claude/skills/qa/SKILL.md)
 > **Output:** executed test plan, defect log, sign-off or rejection. Defects feed step 9 ([`triage-issue`](../../.claude/skills/triage-issue/SKILL.md)).
 
 ## Why
 
-Type checks, unit tests, and code review verify that the code is *correct*. They do not verify that the feature is *right*. Human QA is the only step that closes that gap — a person uses the feature the way a user would and decides whether the destination described in the PRD has actually been reached.
+Tests verify the code is *correct*. Human QA verifies the feature is *right* — that the destination in the PRD has actually been reached. Skipping it is the most common cause of "shipped but broken."
 
-Skipping this step is the most common cause of "shipped but broken" features.
+## Who runs it
 
-## Who does it
-
-- **Not the author.** Authors have blind spots; that is the entire point.
-- Ideally a teammate who has read the PRD but not the diff.
-- For user-facing changes, include someone who matches the target persona where possible.
+- Not the author
+- Ideally a teammate who has read the PRD but not the diff
+- For user-facing changes, include someone who matches the target persona
 
 ## Inputs
 
-- The merged or staged feature, deployed to a preview environment.
-- The PRD (so QA knows the destination).
-- A written test plan from the author covering golden path, edge cases, and known risks.
+- Feature deployed to a preview environment
+- The PRD
+- A written test plan from the author covering golden path, edge cases, known risks
 
 ## Test plan template
 
@@ -34,19 +32,19 @@ Skipping this step is the most common cause of "shipped but broken" features.
 - [ ] <related features that could break>
 
 ## Cross-cutting
-- [ ] Accessibility (keyboard nav, screen reader where applicable)
+- [ ] Accessibility (keyboard, screen reader)
 - [ ] Mobile/responsive
 - [ ] Auth/permission boundaries
 ```
 
 ## How to run it
 
-1. Reviewer reads the PRD first, not the PR.
-2. Reviewer works through the test plan in a real browser/runtime, not via screenshots.
-3. Every defect gets logged immediately — title, repro steps, severity.
-4. Reviewer decides: **pass**, **pass with followups**, or **reject**.
+1. Read the PRD before opening the PR
+2. Work through the test plan in a real runtime — not screenshots
+3. Log every defect immediately: title, repro steps, severity
+4. Decide: **pass**, **pass with followups**, or **reject**
 
-## Severity guide
+## Severity
 
 - **P0** — blocks the feature or breaks something else. Fix before merge.
 - **P1** — user-visible defect on the golden path. Fix before merge.
@@ -55,12 +53,6 @@ Skipping this step is the most common cause of "shipped but broken" features.
 
 ## Outputs
 
-- Pass/fail decision attached to the PR.
-- A list of beads issues for any P2/P3 findings — file them via the [`qa`](../../.claude/skills/qa/SKILL.md) skill, triage the deeper ones with [`triage-issue`](../../.claude/skills/triage-issue/SKILL.md) (step 9).
-- The test plan itself, checked into the PRD folder as `qa.md`, so the next reviewer sees what was already covered.
-
-## Anti-patterns
-
-- **Author runs their own QA.** Replace with a teammate.
-- **"Looks good" sign-off.** Not a QA result. Require the test plan to be visibly executed.
-- **Silent fixes after QA.** Any change after QA must be re-checked, not assumed safe.
+- Pass/fail decision attached to the PR
+- Beads issues for P2/P3 findings — file via [`qa`](../../.claude/skills/qa/SKILL.md), root-cause the deeper ones with [`triage-issue`](../../.claude/skills/triage-issue/SKILL.md)
+- The executed test plan checked into the PRD folder as `qa.md`
