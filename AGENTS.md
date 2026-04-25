@@ -86,3 +86,16 @@ For GitHub Actions, consider using [`voidzero-dev/setup-vp`](https://github.com/
 - [ ] Run `vp install` after pulling remote changes and before getting started.
 - [ ] Run `vp check` and `vp test` to validate changes.
 <!--VITE PLUS END-->
+
+## Environment Variables
+
+Always refer to https://varlock.dev/llms.txt when interacting with environment variables. This project uses `varlock` with `@varlock/vite-integration`; schemas live in `.env.schema` files (root + per-app).
+
+## Coding Guidelines (Karpathy)
+
+Always apply when writing, reviewing, or refactoring code:
+
+1. **Think before coding** — state assumptions, surface tradeoffs, ask if unclear
+2. **Simplicity first** — minimum code that solves the problem, nothing speculative
+3. **Surgical changes** — touch only what you must, match existing style
+4. **Goal-driven execution** — define verifiable success criteria, loop until verified
