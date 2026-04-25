@@ -15,7 +15,6 @@
     "build": "tsc && vp build",
     "preview": "vp preview",
     "test:e2e": "vp test",
-    "env:typegen": "varlock typegen",
     "env:check": "varlock load",
     "clean": "rimraf dist src/env.d.ts"
   },
