@@ -46,3 +46,10 @@ gha-creds-*.json
 .dolt/
 *.db
 .beads-credential-key
+
+# Env files (varlock — never commit secrets)
+.env
+.env.*
+!.env.schema
+!.env.schema.*
+!.env.example
