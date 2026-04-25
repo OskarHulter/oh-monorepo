@@ -3,17 +3,26 @@ name: Copilot Reply
 on:
   pull_request_review:
     types: [submitted]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to triage (uses latest Copilot review on that PR)'
+        required: true
+        type: number
 
 permissions:
   contents: read
 
 concurrency:
-  group: copilot-reply-${{ github.event.pull_request.number }}
+  group: copilot-reply-${{ github.event.pull_request.number || inputs.pr_number }}
   cancel-in-progress: false
 
 jobs:
   triage:
-    if: github.event.review.user.login == 'copilot-pull-request-reviewer[bot]' || github.event.review.user.login == 'Copilot'
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event.review.user.login == 'copilot-pull-request-reviewer[bot]' ||
+      github.event.review.user.login == 'Copilot'
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -21,22 +30,43 @@ jobs:
     env:
       MAX_ITER: '5'
     steps:
-      - id: input
+      - id: resolve
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          DISPATCH_PR: ${{ inputs.pr_number }}
+          REVIEW_PR: ${{ github.event.pull_request.number }}
           REVIEW_BODY: ${{ github.event.review.body }}
           REVIEW_STATE: ${{ github.event.review.state }}
         run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            pr="$DISPATCH_PR"
+            review=$(gh api "repos/$REPO/pulls/$pr/reviews" \
+              --jq '[.[] | select(.user.login=="Copilot" or .user.login=="copilot-pull-request-reviewer[bot]")] | last')
+            if [ -z "$review" ] || [ "$review" = "null" ]; then
+              echo "::error::no Copilot review found on PR #$pr"
+              exit 1
+            fi
+            state=$(printf '%s' "$review" | jq -r '.state')
+            body=$(printf '%s' "$review" | jq -r '.body')
+          else
+            pr="$REVIEW_PR"
+            state="$REVIEW_STATE"
+            body="$REVIEW_BODY"
+          fi
           {
-            echo "review_state=$REVIEW_STATE"
-            echo 'review_body<<EOF'
-            printf '%s\n' "$REVIEW_BODY"
-            echo 'EOF'
+            echo "pr=$pr"
+            echo "review_state=$state"
+            echo 'review_body<<COPILOT_REPLY_EOF'
+            printf '%s\n' "$body"
+            echo 'COPILOT_REPLY_EOF'
           } >> "$GITHUB_OUTPUT"
 
       - id: find
         uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4
         with:
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ steps.resolve.outputs.pr }}
           comment-author: github-actions[bot]
           body-includes: '<!-- copilot-reply-bot -->'
 
@@ -59,10 +89,10 @@ jobs:
             NIT (style/preference/minor), or ACK (general approval/no concerns).
             Reply with only the single word, no punctuation, no markdown.
           prompt: |
-            Review state: ${{ steps.input.outputs.review_state }}
+            Review state: ${{ steps.resolve.outputs.review_state }}
 
             Review body:
-            ${{ steps.input.outputs.review_body }}
+            ${{ steps.resolve.outputs.review_body }}
           max-tokens: 8
 
       - id: decide
@@ -89,7 +119,7 @@ jobs:
       - if: steps.decide.outputs.action == 'fix'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR: ${{ github.event.pull_request.number }}
+          PR: ${{ steps.resolve.outputs.pr }}
           REPO: ${{ github.repository }}
         run: |
           gh pr edit "$PR" --add-assignee Copilot || echo "::warning::could not assign Copilot (org policy?)"
@@ -99,11 +129,12 @@ jobs:
       - uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5
         with:
           comment-id: ${{ steps.find.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ steps.resolve.outputs.pr }}
           edit-mode: replace
           body: |
             <!-- copilot-reply-bot iter=${{ steps.iter.outputs.next }} -->
             **Copilot review triage:** `${{ steps.decide.outputs.verdict }}`
             **Iteration:** `${{ steps.iter.outputs.next }} / ${{ env.MAX_ITER }}`
             **Action:** `${{ steps.decide.outputs.action }}` — ${{ steps.decide.outputs.reason }}
-            **Review state:** `${{ steps.input.outputs.review_state }}`
+            **Review state:** `${{ steps.resolve.outputs.review_state }}`
+            **Triggered by:** `${{ github.event_name }}`
