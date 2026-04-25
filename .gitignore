@@ -37,3 +37,7 @@ dist-ssr
 
 # AI agent local state
 .claude/
+.gemini/
+
+# GitHub App credentials
+gha-creds-*.json
