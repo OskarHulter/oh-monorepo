@@ -155,3 +155,10 @@ bd close <id>         # Complete work
 - NEVER say "ready to push when you are" - YOU must push
 - If push fails, resolve and retry until it succeeds
 <!-- END BEADS INTEGRATION -->
+
+## Beads — Local Overrides
+
+Outside managed `BEADS INTEGRATION` block. Survives `bd` regen.
+
+- **No `bd edit`** — opens `$EDITOR`, blocks agent. Use `bd update` inline flags: `--title`, `--description`, `--notes`, `--design`, `--status`, `--priority`.
+- **Session-close: `bd backup sync` not `bd dolt push`.** No Dolt remote configured. See [`docs/operations/beads-backup.md`](./docs/operations/beads-backup.md). Managed block stale → prefer this.
