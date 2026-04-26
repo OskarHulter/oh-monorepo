@@ -139,9 +139,10 @@ bd close <id>         # Complete work
 4. **PUSH TO REMOTE** - This is MANDATORY:
    ```bash
    git pull --rebase
-   bd dolt push
+   bd backup sync         # off-machine bd backup; see docs/operations/beads-backup.md
    git push
-   git status  # MUST show "up to date with origin"
+   git status             # MUST show "up to date with origin"
+   bd backup status       # 'Last backup' should be recent; destination must be set
    ```
 5. **Clean up** - Clear stashes, prune remote branches
 6. **Verify** - All changes committed AND pushed
