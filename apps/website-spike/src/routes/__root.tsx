@@ -5,10 +5,10 @@ import appCss from '../styles/app.css?url'
 
 export const Route = createRootRoute({
   head: () => ({
+    title: 'website-spike',
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'website-spike' },
     ],
     links: [{ rel: 'stylesheet', href: appCss }],
   }),

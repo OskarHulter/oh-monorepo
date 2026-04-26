@@ -102,6 +102,10 @@ Always apply when writing, reviewing, or refactoring code:
 
 Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
 
+## Filesystem
+
+- **`rimraf` takes one argument only.** Multi-arg calls bypass the repo-relative allow-matchers in [`agent-permissions.md`](./docs/feature-dev-process/agent-permissions.md#filesystem) — the prefix-glob only validates the first arg.
+
 ## Project Skills
 
 Project skills: [`.claude/skills/`](./.claude/skills/README.md). Map to [feature dev process](./docs/feature-dev-process/README.md). Claude Code auto-loads; other harnesses paste `SKILL.md` into conversation.
