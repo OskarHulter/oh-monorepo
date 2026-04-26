@@ -223,14 +223,16 @@ The following are explicitly NOT in this PRD; each has its own bd ticket or road
 
 ### Cycle position
 
-- Step 1 (Idea) — done in conversation.
-- Step 2 (Research) — `research.md`, `r1-spike-notes.md`, RFC `oh-monorepo-6mn`. Done. PR #11.
-- Step 3 (Prototype) — R1 spike at `apps/website-spike/` (Tanstack Start path verified GREEN; not the v1 path per ADR 0007, retained as future-migration evidence). Done. PR #11.
-- **Step 4 (PRD) — this document, amended 2026-04-26 to defer Tanstack Start.**
-- Step 4.5 (ADR) — `docs/adr/0007-defer-tanstack-start.md` records the framework decision + revisit trigger.
-- Step 5 (Kanban) — `to-issues` skill breaks this PRD into vertical-slice bd issues.
-- Step 6 (Implementation) — TDD per slice. Burn-down deletes both the existing `apps/website/src/` demo content AND `apps/website-spike/`.
-- Step 7 (Code review) — `brooks-lint:brooks-review` on each PR.
-- Step 8 (Human QA) — `qa` skill on the deployed preview.
-- Step 9 (QA followups) — triage as bd issues.
-- Step 10 (Team review) — solo project; this step is a tag-yourself.
+> Cycle steps follow [`docs/feature-dev-process/README.md`](../../feature-dev-process/README.md) (letters, not numbers — sequence is a guide, optional steps allowed).
+
+- **A. Idea** — done in conversation.
+- **B. [Research](../../feature-dev-process/01-research.md)** — `research.md`, `r1-spike-notes.md`, RFC `oh-monorepo-6mn`. Done. PR #11.
+- **C. Prototype** — R1 spike at `apps/website-spike/` (Tanstack Start path verified GREEN; not the v1 path per ADR 0007, retained as future-migration evidence). Done. PR #11.
+- **D. PRD — this document, amended 2026-04-26 to defer Tanstack Start.**
+- **D.5 ADR** — `docs/adr/0007-defer-tanstack-start.md` records the framework decision + revisit trigger.
+- **E. Kanban** — done. Slices filed as `oh-monorepo-{ss1, 7a6, 1ob, 559, 4ge, 2v7, no7, f0l, uqy}` with dependency graph wired.
+- **F. [Implementation](../../feature-dev-process/02-implementation.md)** — TDD per slice. Burn-down deletes both the existing `apps/website/src/` demo content AND `apps/website-spike/`.
+- **G. Code Review** — `brooks-lint:brooks-review` on each PR.
+- **H. [Human QA](../../feature-dev-process/03-human-qa.md)** — `qa` skill on the deployed preview.
+- **I. QA Followups** — triage as bd issues.
+- **J. [Team Review](../../feature-dev-process/04-team-review.md)** — solo project; this step is a tag-yourself.
