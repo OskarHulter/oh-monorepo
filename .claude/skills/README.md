@@ -9,16 +9,16 @@ Most skills here are distilled from [Matt Pocock's skills repo](https://github.c
 ## Index
 
 - [`caveman`](./caveman/SKILL.md) — terse communication mode
-- [`grill-me`](./grill-me/SKILL.md) — relentless plan interview (step 1)
-- [`improve-codebase-architecture`](./improve-codebase-architecture/SKILL.md) — research deepening opportunities (step 2)
-- [`design-an-interface`](./design-an-interface/SKILL.md) — generate competing interface designs (step 3)
-- [`to-prd`](./to-prd/SKILL.md) — synthesise context into a PRD (step 4)
-- [`to-issues`](./to-issues/SKILL.md) — break a PRD into vertical-slice issues (step 5)
-- [`tdd`](./tdd/SKILL.md) — red-green-refactor by tracer bullet (step 6)
-- [`qa`](./qa/SKILL.md) — interactive human QA, file issues from findings (step 8)
-- [`triage-issue`](./triage-issue/SKILL.md) — root-cause a defect, file a TDD fix plan (step 9)
+- [`grill-me`](./grill-me/SKILL.md) — relentless plan interview (step A)
+- [`improve-codebase-architecture`](./improve-codebase-architecture/SKILL.md) — research deepening opportunities (step B)
+- [`design-an-interface`](./design-an-interface/SKILL.md) — generate competing interface designs (step C)
+- [`to-prd`](./to-prd/SKILL.md) — synthesise context into a PRD (step D)
+- [`to-issues`](./to-issues/SKILL.md) — break a PRD into vertical-slice issues (step E)
+- [`tdd`](./tdd/SKILL.md) — red-green-refactor by tracer bullet (step F)
+- [`qa`](./qa/SKILL.md) — interactive human QA, file issues from findings (step H)
+- [`triage-issue`](./triage-issue/SKILL.md) — root-cause a defect, file a TDD fix plan (step I)
 
-The feature dev process that ties these together: [`docs/plans/README.md`](../../docs/plans/README.md).
+Full dev process: [`docs/feature-dev-process/README.md`](../../docs/feature-dev-process/README.md).
 
 ## How to invoke
 

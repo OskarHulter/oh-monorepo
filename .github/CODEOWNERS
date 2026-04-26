@@ -1,0 +1,9 @@
+# Code owners for oh-monorepo
+#
+# Ordering matters: later rules override earlier ones.
+# Required by the "require review from Code Owners" branch protection rule
+# on `main` — without this file the rule has nothing to enforce.
+#
+# Reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+* @OskarHulter

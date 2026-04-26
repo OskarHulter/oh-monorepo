@@ -104,7 +104,7 @@ Always use Context7 when I need library/API documentation, code generation, setu
 
 ## Project Skills
 
-Project skills live in [`.claude/skills/`](./.claude/skills/README.md) — distilled, repo-specific agent instructions that map to the [feature dev process](./docs/plans/README.md). Claude Code auto-loads them; in other harnesses, paste the relevant `SKILL.md` into the conversation.
+Project skills: [`.claude/skills/`](./.claude/skills/README.md). Map to [feature dev process](./docs/feature-dev-process/README.md). Claude Code auto-loads; other harnesses paste `SKILL.md` into conversation.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 
@@ -139,9 +139,8 @@ bd close <id>         # Complete work
 4. **PUSH TO REMOTE** - This is MANDATORY:
    ```bash
    git pull --rebase
-   bd dolt push
    git push
-   git status  # MUST show "up to date with origin"
+   git status             # MUST show "up to date with origin"
    ```
 5. **Clean up** - Clear stashes, prune remote branches
 6. **Verify** - All changes committed AND pushed
@@ -154,3 +153,10 @@ bd close <id>         # Complete work
 - NEVER say "ready to push when you are" - YOU must push
 - If push fails, resolve and retry until it succeeds
 <!-- END BEADS INTEGRATION -->
+
+## Beads — Local Overrides
+
+Outside managed `BEADS INTEGRATION` block. Survives `bd` regen.
+
+- **No `bd edit`** — opens `$EDITOR`, blocks agent. Use `bd update` inline flags: `--title`, `--description`, `--notes`, `--design`, `--status`, `--priority`.
+- **Skip `bd dolt push` in session-close.** No Dolt remote configured; off-machine backup deferred. Local `.beads/backup/*.darc` 15-min snapshots cover in-disk recovery only.

@@ -1,4 +1,4 @@
-# Step 10 — Team Review
+# Step J — Team Review
 
 > **Skill:** none — process step, owned by humans. See [`.claude/skills/`](../../.claude/skills/README.md) for skills used in earlier steps.
 > **Output:** shared understanding, captured decisions, handoff to operate/maintain.

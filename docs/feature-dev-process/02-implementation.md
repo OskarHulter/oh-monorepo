@@ -1,4 +1,4 @@
-# Step 6 — Implementation
+# Step F — Implementation
 
 > **Skill:** [`tdd`](../../.claude/skills/tdd/SKILL.md)
 > **Output:** code, tests, ADRs; one PR per kanban issue (or tight group).
@@ -71,9 +71,12 @@ claude --permission-mode acceptEdits \
 
 ### Required permissions
 
+The Ralph Loop runs **unsupervised**, so its allowlist is tighter than the [general agent allowlist](./agent-permissions.md). Use the general one for human-in-the-loop sessions; use this one for autonomous runs.
+
 - **`--permission-mode acceptEdits`** — load-bearing. Without it the loop stalls on every Edit/Write prompt.
 - **Project-scoped allowlist** — `Edit(<repo>/**)`, `Write(<repo>/**)` so the agent can work without prompts inside the repo.
 - **Denylist for destructive commands** — `Bash(rm *)`, force-push, `git reset --hard`. Give the agent the rope it needs and not a meter more.
+- **Server-side guardrails** — assumes the branch protection ruleset documented in [`agent-permissions.md`](./agent-permissions.md#assumed-branch-protection-on-main) is applied to `main` so a stray `git push origin main` is rejected.
 
 ### On failure
 
