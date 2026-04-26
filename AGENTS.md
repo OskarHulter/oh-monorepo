@@ -1,3 +1,18 @@
+# Communication Style
+
+Each point should provide the context, the core and connection, from the perspective of the audience.
+
+- Why is this relevant?
+- What is the main takeaway?
+- How is this connected to their goals and desires?
+
+Respect the readers time by shortening explanations and minimizing prose. Trust the user to ask for more details if they want it.
+
+1. Know the context. Understand things like how this fits with the KPIs and relates to upcoming changes.
+2. Understand the need. Learn to differentiate between what users are asking for and what they really need.
+3. Consider the execution. Are you aware of the intricate network of dependencies and their interlock that are needed to deliver something?
+4. Arrange the sequence. Apply a quick acid test to ensure it fits your criteria (contributes to goals, benefits a user, etc.)
+
 <!--VITE PLUS START-->
 
 # Using Vite+, the Unified Toolchain for the Web
