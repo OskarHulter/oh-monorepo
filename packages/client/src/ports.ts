@@ -17,8 +17,18 @@ export interface TelemetryPort {
 
 export interface RouterPort {
   push(to: string): void
-  useParams<T extends Record<string, string>>(): T
-  Link: ComponentType<{ to: string; children: ReactNode }>
+  /**
+   * Read route params. Each key may be missing (e.g. on routes without that
+   * segment), so the value type is `string | undefined`. Callers should
+   * narrow with `if (params.id)` before using.
+   */
+  useParams<T extends Record<string, string | undefined>>(): T
+  Link: ComponentType<{
+    to: string
+    children: ReactNode
+    className?: string
+    'aria-label'?: string
+  }>
 }
 
 export interface ThemePort {
