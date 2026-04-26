@@ -1,7 +1,7 @@
-# Step 8 — Human QA of Completed Work
+# Step H — Human QA of Completed Work
 
 > **Skill:** [`qa`](../../.claude/skills/qa/SKILL.md)
-> **Output:** executed test plan, defect log, sign-off or rejection. Defects feed step 9 ([`triage-issue`](../../.claude/skills/triage-issue/SKILL.md)).
+> **Output:** executed test plan, defect log, sign-off or rejection. Defects feed step I ([`triage-issue`](../../.claude/skills/triage-issue/SKILL.md)).
 
 ## Why
 

@@ -1,6 +1,6 @@
 # Agent Permissions
 
-Strict autonomous loop: see [`docs/plans/implementation.md`](../plans/implementation.md#required-permissions).
+Strict autonomous loop: see [`02-implementation.md`](./02-implementation.md#required-permissions).
 
 ## Assumed branch protection on `main`
 

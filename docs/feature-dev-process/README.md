@@ -44,45 +44,49 @@ If you skip the expected action for any reason, describe why and what you did in
 
 ## The Cycle
 
-1. **Idea**
-   - Skill: [`grill-me`](../../.claude/skills/grill-me/SKILL.md) — interview yourself or a teammate to surface assumptions.
-   - Output: one sentence on the problem and rough shape.
-2. **[Research](./research.md)**
-   - Skill: [`improve-codebase-architecture`](../../.claude/skills/improve-codebase-architecture/SKILL.md) — find deepening opportunities and friction.
-   - Output: `research.md` with findings, constraints, prior art.
-3. **Prototype**
-   - Skill: [`design-an-interface`](../../.claude/skills/design-an-interface/SKILL.md) — generate competing interface designs in parallel.
-   - Output: throwaway spike or interface sketch for the PRD.
-4. **PRD**
-   - Skill: [`to-prd`](../../.claude/skills/to-prd/SKILL.md) — synthesise context into a PRD without re-interviewing.
-   - Output: `prd.md` describing the destination, not the path.
-5. **Kanban**
-   - Skill: [`to-issues`](../../.claude/skills/to-issues/SKILL.md) — break the PRD into vertical-slice beads issues.
-   - Output: independently-grabbable issues with honest dependencies.
-6. **[Implementation](./implementation.md)**
-   - Skill: [`tdd`](../../.claude/skills/tdd/SKILL.md) — red-green-refactor by tracer bullet, one slice at a time.
-   - Output: code, tests, ADRs.
-7. **Code Review**
-   - Skills: `brooks-lint:brooks-review`, `pr-review-toolkit:review-pr` (no upstream Pocock skill maps cleanly here).
-   - Output: diff-level feedback on gaps, risks, design.
-8. **[Human QA](./human-qa-of-completed-work.md)**
-   - Skill: [`qa`](../../.claude/skills/qa/SKILL.md) — interactive session, durable issues from findings.
-   - Output: executed test plan and a list of new issues.
-9. **QA Followups**
-   - Skill: [`triage-issue`](../../.claude/skills/triage-issue/SKILL.md) — root-cause a defect and file a TDD fix plan.
-   - Output: triaged beads issues, ready to claim.
-10. **[Team Review](./team-review.md)**
-    - Skill: none — process step, owned by humans.
-    - Output: demo, decisions captured, handoff.
+Letters not numbers — sequence is a guide, not a contract. Several steps are optional (skip Prototype for typo fixes; skip Team Review for solo work; etc.).
+
+- **A. Idea**
+  - Skill: [`grill-me`](../../.claude/skills/grill-me/SKILL.md) — interview yourself or a teammate to surface assumptions.
+  - Output: one sentence on the problem and rough shape.
+- **B. [Research](./01-research.md)**
+  - Skill: [`improve-codebase-architecture`](../../.claude/skills/improve-codebase-architecture/SKILL.md) — find deepening opportunities and friction.
+  - Output: `research.md` with findings, constraints, prior art.
+- **C. Prototype**
+  - Skill: [`design-an-interface`](../../.claude/skills/design-an-interface/SKILL.md) — generate competing interface designs in parallel.
+  - Output: throwaway spike or interface sketch for the PRD.
+- **D. PRD**
+  - Skill: [`to-prd`](../../.claude/skills/to-prd/SKILL.md) — synthesise context into a PRD without re-interviewing.
+  - Output: `prd.md` describing the destination, not the path.
+- **E. Kanban**
+  - Skill: [`to-issues`](../../.claude/skills/to-issues/SKILL.md) — break the PRD into vertical-slice beads issues.
+  - Output: independently-grabbable issues with honest dependencies.
+- **F. [Implementation](./02-implementation.md)**
+  - Skill: [`tdd`](../../.claude/skills/tdd/SKILL.md) — red-green-refactor by tracer bullet, one slice at a time.
+  - Output: code, tests, ADRs.
+- **G. Code Review**
+  - Skills: `brooks-lint:brooks-review`, `pr-review-toolkit:review-pr` (no upstream Pocock skill maps cleanly here).
+  - Output: diff-level feedback on gaps, risks, design.
+- **H. [Human QA](./03-human-qa.md)**
+  - Skill: [`qa`](../../.claude/skills/qa/SKILL.md) — interactive session, durable issues from findings.
+  - Output: executed test plan and a list of new issues.
+- **I. QA Followups**
+  - Skill: [`triage-issue`](../../.claude/skills/triage-issue/SKILL.md) — root-cause a defect and file a TDD fix plan.
+  - Output: triaged beads issues, ready to claim.
+- **J. [Team Review](./04-team-review.md)**
+  - Skill: none — process step, owned by humans.
+  - Output: demo, decisions captured, handoff.
+
+Agent permissions that apply throughout the cycle: [`agent-permissions.md`](./agent-permissions.md).
 
 ## Artifact layout
 
 ```
 docs/plans/<feature>/
-  research.md      # step 2
-  prd.md           # step 4
-  qa.md            # step 8 — test plan + execution log
-  team-review.md   # step 10
+  research.md      # step B
+  prd.md           # step D
+  qa.md            # step H — test plan + execution log
+  team-review.md   # step J
 docs/adr/NNNN-<slug>.md  # design decisions, any step
 ```
 

@@ -1,4 +1,4 @@
-# Step 2 — Research
+# Step B — Research
 
 > **Skill:** [`improve-codebase-architecture`](../../.claude/skills/improve-codebase-architecture/SKILL.md)
 > **Output:** `docs/plans/<feature>/research.md`
