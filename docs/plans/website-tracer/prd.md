@@ -1,6 +1,8 @@
 # website-tracer — PRD
 
 > Synthesized from `research.md` + `r1-spike-notes.md` + bd `oh-monorepo-6mn` (RFC) without re-interview.
+>
+> **Amendment 2026-04-26:** Tanstack Start adoption deferred per ADR `docs/adr/0007-defer-tanstack-start.md`. v1 ships on plain Vite + React static. R1 spike remains valid as future-migration evidence; not the v1 path.
 
 ## Problem statement
 
@@ -8,7 +10,13 @@ The current site at [oskarhulter.com](https://oskarhulter.com/) is a stale 2023 
 
 ## Solution
 
-A single landing route at `/` rendered as a static prerendered page from `apps/website`, built with Tanstack Start RC + React 19 + Tailwind v4 + Nitro on `vp`. The page shows: name, short bio, a small set of social links. The site replaces the current oskarhulter.com via a preview-subdomain → DNS swap. The library `@oh/client` is reshaped to the ports & adapters design from `oh-monorepo-6mn`: kernel exports `Providers`, UI surface lives at `@oh/client/ui`, only the fixture adapter ships from the library, and concrete adapters (router, telemetry, theme, data) live in the consumer at `apps/website/src/adapters/`. App shell `<App>` is consumer-owned. Cosmos fixtures land alongside every component.
+A single landing page at `/` shipped from `apps/website`, built with **plain Vite + React 19 + Tailwind v4 on `vp`**. Static output (`dist/`) drops into Cloudflare Pages. The page shows: name, short bio, a small set of social links. The site replaces the current oskarhulter.com via a preview-subdomain → DNS swap.
+
+Optional build-time prerender via `vite-react-ssg` (or a small custom render script) if SEO HTML proves needed for the landing route — otherwise SPA-shell + hydrate is acceptable at this size.
+
+The library `@oh/client` is reshaped to the ports & adapters design from `oh-monorepo-6mn`: kernel exports `Providers`, UI surface lives at `@oh/client/ui`, only the fixture adapter ships from the library, and concrete adapters (router, telemetry, theme, data) live in the consumer at `apps/website/src/adapters/`. App shell `<App>` is consumer-owned. Cosmos fixtures land alongside every component.
+
+The framework choice is **decoupled from the RFC**: `@oh/client` is React + ports + adapters and works identically under plain Vite, Tanstack Start, or any other React host. Migration to Tanstack Start later is gated on a feature that earns it (per ADR 0007).
 
 When this ships:
 - Visitors hit a fast, fully prerendered landing page that respects their colour-scheme preference.
@@ -87,17 +95,18 @@ When this ships:
 **`@oh/client/adapters/fixture` (`packages/client/src/adapters/fixture/`)**
 - `index.ts` — `createFixturePorts(seed?)` factory. Composes per-feature fixture impls (initially just social-links) into a `Ports` object with passthrough router/theme/telemetry implementations suitable for tests and Cosmos.
 
-**`apps/website` (rebuilt)**
+**`apps/website` (rebuilt — plain Vite + React)**
 - Burn current `src/` (counter, vanilla template) but preserve: `public/{favicon.svg,icons.svg}`, `.env.schema`, `site.config.ts` shape (env → `@oh/shared/websiteSchema` → typed object), `tests/` (port to new structure).
-- New `src/app.tsx` — consumer-owned `<App>` that mounts `<Providers ports>` around the route tree.
-- New `src/adapters/index.ts` — composes ports for the app: fixture for `data` and `telemetry`, Tanstack Router adapter for `router`, CSS-media-query adapter for `theme`. Concrete adapters live in subfiles (`router.ts`, `theme.ts`, `telemetry.ts`).
-- `src/router.tsx`, `src/routes/__root.tsx` (head metadata from `siteConfig`), `src/routes/index.tsx` (renders `<Hero />` + `<SocialLinks />`).
-- `vite.config.ts` — plugin order from R1: `tailwindcss`, `tanstackStart`, `viteReact`, `nitro({ preset: 'static' })`. `cloudflare-pages` preset is the documented fallback if static prerender hits issues.
-- Drop nitro plugin if static preset doesn't require it (verify during implementation).
+- `index.html` — single Vite entry; head metadata templated from `siteConfig` via `vite-plugin-html` or inline `%VITE_*%` placeholders.
+- New `src/main.tsx` — Vite/React entry; mounts the consumer-owned `<App>` into `#app`.
+- New `src/app.tsx` — consumer-owned `<App>` that mounts `<Providers ports>` around the page content. No router needed for v1 (single route).
+- New `src/adapters/index.ts` — composes ports for the app: fixture for `data` and `telemetry`, simple location-based or no-op adapter for `router` (no Tanstack Router in v1; `RouterPort.Link` becomes a thin `<a>` wrapper, `useParams` returns empty), CSS-media-query adapter for `theme`. Concrete adapters live in subfiles (`router.ts`, `theme.ts`, `telemetry.ts`).
+- `vite.config.ts` — plugin order: `varlockVitePlugin`, `tailwindcss`, `viteReact`. No Tanstack Start, no Nitro.
+- Optional: `vite-react-ssg` if static prerender HTML is wanted for SEO. Decision deferred to implementation; default is SPA-shell + hydrate.
 
 **Workspace catalog (`pnpm-workspace.yaml`)**
-- Add `react`, `react-dom`, `@tanstack/react-router`, `@tanstack/react-start`, `@tailwindcss/vite`, `tailwindcss`, `@vitejs/plugin-react` as catalog entries so `apps/website` and `packages/client` share versions.
-- Pin to the versions confirmed in the R1 spike.
+- Add `react`, `react-dom`, `@vitejs/plugin-react`, `@tailwindcss/vite`, `tailwindcss`, `@types/react`, `@types/react-dom` as catalog entries so `apps/website` and `packages/client` share versions.
+- Do NOT add `@tanstack/react-router`, `@tanstack/react-start`, or `nitro` in v1 (they land when ADR 0007's revisit trigger fires).
 
 **CI / deploy (`.github/workflows/`)**
 - Add a Pages deploy workflow: build `apps/website` via `vp run website#build`, deploy `.output/public` to a CF Pages project via Wrangler (or CF Pages git integration if simpler at this stage).
@@ -118,8 +127,9 @@ When this ships:
 - Ports & adapters per RFC `oh-monorepo-6mn` is the spine. No deviation in this PRD.
 - TS-source exports (no `vp pack` build step in dev) for v1; revisit when `@oh/client` is published externally.
 - React Cosmos uses fixture ports as a decorator so every fixture renders without a real adapter wired.
-- `oxlint` `no-restricted-imports` rule prohibits concrete infra (`@sentry/*`, `@tanstack/react-router`, `@duckdb/*`, `@cloudflare/*`, raw URLs) from `src/ui/**` and `src/ui/features/**`. Only `src/adapters/fixture/**` and `apps/website/src/adapters/**` may import them.
-- Tanstack Start Nitro preset: `static` (preferred). Fall back to `cloudflare-pages` if static prerender misbehaves.
+- `oxlint` `no-restricted-imports` rule prohibits concrete infra (`@sentry/*`, `@duckdb/*`, `@cloudflare/*`, raw URLs) from `src/ui/**` and `src/ui/features/**`. Only `src/adapters/fixture/**` and `apps/website/src/adapters/**` may import them.
+- **Framework: plain Vite + React 19** for v1 (per ADR 0007). Tanstack Start adoption deferred to first dynamic feature.
+- **Prerender stance:** SPA-shell + hydrate is acceptable on a 30–45 kB gzip landing. Opt into `vite-react-ssg` only if SEO testing shows missing index content hurts.
 - DNS cutover: lower TTL 24 h before; preview deploy to `preview.oskarhulter.com`; smoke (Lighthouse, link-check, real-device); swap apex via CF Pages "Custom domain" (apex CNAME flatten managed by CF); monitor 24 h; rollback by removing custom domain + restoring prior apex record.
 
 ### Schema changes
@@ -129,10 +139,10 @@ When this ships:
 
 ### Key interactions
 
-- App boot: `apps/website/src/app.tsx` builds `ports` from `./adapters/index.ts` and mounts `<Providers ports>` around the Tanstack Router. The router renders `__root.tsx` (head metadata from varlock-driven site config) → `routes/index.tsx` → `<Hero />` and `<SocialLinks />`.
+- App boot: `src/main.tsx` mounts `<App>` into `#app`. `<App>` builds `ports` from `./adapters/index.ts` and renders `<Providers ports>` around `<Hero />` + `<SocialLinks />`. Head metadata is templated into `index.html` at build time via varlock.
 - Feature: `<SocialLinks />` calls `useSocialLinks()` → `usePorts().data.socialLinks.list()` → fixture returns seed data → component renders list.
-- Build: `vp build` triggers Vite client + SSR + nitro builds → Nitro `static` preset prerenders the route tree → `.output/public` is the CF Pages artefact.
-- Deploy: CI runs `vp build` with Infisical-injected env → uploads `.output/public` to CF Pages → preview URL or production custom domain based on branch.
+- Build: `vp build` runs Vite production build → emits `dist/` containing hashed JS/CSS, prerendered `index.html`, and `public/` assets.
+- Deploy: CI runs `vp build` with Infisical-injected env → uploads `dist/` to CF Pages → preview URL or production custom domain based on branch.
 
 ## Testing decisions
 
@@ -145,8 +155,8 @@ External behaviour at module seams. Boundary tests on `@oh/client` public export
 - **`@oh/client/ui` components** — Cosmos fixture per component (minimum one; multiples for state coverage). Vitest browser tests on rendered output for accessibility-floor checks (semantic headings, link `aria-label`, contrast token via Tailwind class assertions).
 - **`@oh/client/ui/features` hooks** — Vitest unit tests with `createFixturePorts(seed)` injecting deterministic data; assert hook return shape and that it calls the port (not a fetch URL or anything concrete).
 - **`@oh/client/adapters/fixture`** — One smoke test asserting `createFixturePorts()` returns a valid `Ports` object (typecheck-level + runtime sanity).
-- **`apps/website`** — Playwright E2E against `.output/public` served by `vp preview` (or equivalent static server): root route returns 200 with the expected title/meta/H1; social links are present and have correct `href` and `target="_blank" rel="noopener noreferrer"`; 404 path returns the configured 404 page; OG image link is present in head.
-- **Build artefact** — Single smoke assertion in CI that `.output/public/index.html` contains `siteConfig.name` literal, ensuring varlock env actually flowed through prerender.
+- **`apps/website`** — Playwright E2E against `dist/` served by `vp preview` (or equivalent static server): root route returns 200 with the expected title/meta/H1; social links are present and have correct `href` and `target="_blank" rel="noopener noreferrer"`; OG image link is present in head; CF Pages `_redirects` (if used for SPA fallback) routes unknown paths back to the landing.
+- **Build artefact** — Single smoke assertion in CI that `dist/index.html` contains `siteConfig.name` literal, ensuring varlock env actually flowed through the build.
 
 ### What is intentionally NOT tested at this stage
 
@@ -176,40 +186,43 @@ The following are explicitly NOT in this PRD; each has its own bd ticket or road
 - **`vp pack` multi-entry external publish of `@oh/client`.** v1 uses TS-source exports; revisit on first external consumer.
 - **Theme toggle UI.** v1 follows OS `prefers-color-scheme` only. Manual toggle deferred.
 - **i18n / locale switching.** `SITE_LOCALE=en-US` is fixed in v1.
+- **Tanstack Start adoption.** Deferred per ADR 0007. v1 is plain Vite + React. R1 spike (PR #11) preserved as migration evidence; lands as proven path when first dynamic feature earns it.
+- **File-based routing.** Single route in v1 — hand-written. Adopt Tanstack Router or similar when route count + shared layouts justify it.
+- **Server functions / loaders.** None in v1. Lands with Tanstack Start migration.
 
 ## Further notes
 
 ### Open questions to resolve in implementation
 
-1. **Nitro preset:** start with `static`; fall back to `cloudflare-pages` if prerender doesn't produce the expected `.output/public` shape. Document the chosen preset in an ADR.
+1. **Static prerender:** ship SPA-shell + hydrate (default, simplest, ~30–45 kB gzip JS) or add `vite-react-ssg` for prerendered HTML at build time. Decide based on first Lighthouse + crawler check on the SPA-shell version.
 2. **`Hero` data source:** props vs port-driven (read site name/tagline from a `SitePort`). Lean: props for v1 (single-page, no reuse), port if a second page lands.
 3. **OG image:** static asset in `public/` (simplest) vs runtime-generated via Workers (premature). Lean: static SVG/PNG in `public/og.png`.
-4. **404 page:** Tanstack Router's `defaultNotFoundComponent` returning a minimal page using the same `<Hero />` + back-to-home link.
-5. **`routeTree.gen.ts`:** add to `apps/website/.gitignore` for the real app, even though it was committed in the spike for evidence.
-6. **Email obfuscation:** current site uses CF email obfuscation. Verify whether contact email is exposed at all in v1 (simplest: don't include an email link, only social profiles); if email is needed, link via `mailto:` and let CF zone-level email obfuscation continue.
-7. **CF Pages deploy mode:** Wrangler-from-CI vs CF Pages git integration. Lean: Wrangler-from-CI for parity with future Workers projects and for Infisical injection at deploy time.
-8. **Catalog upgrades:** Tanstack Start RC pins are best-effort; confirm latest at implementation time.
+4. **404 / SPA fallback:** simplest CF Pages `_redirects` rule mapping `/* /index.html 200` to support deep-link refreshes; add a small "page not found" inline component if the URL doesn't match the single landing path.
+5. **Email obfuscation:** current site uses CF email obfuscation. Verify whether contact email is exposed at all in v1 (simplest: don't include an email link, only social profiles); if email is needed, link via `mailto:` and let CF zone-level email obfuscation continue.
+6. **CF Pages deploy mode:** Wrangler-from-CI vs CF Pages git integration. Lean: Wrangler-from-CI for parity with future Workers projects and for Infisical injection at deploy time.
+7. **React 19 transition mode:** strict-mode dev-only. Acceptable to keep `<React.StrictMode>` wrapping `<App>`.
 
-### Risks (carrying forward from research)
+### Risks (carrying forward from research, post-amendment)
 
-| # | Risk | Mitigation |
+| # | Risk | Status / Mitigation |
 |---|---|---|
-| R1 | vp + Tanstack Start compat | Verified GREEN in PR #11 spike. |
-| R2 | varlock env not injected into Tanstack Start client + server pipelines | Implementation-time check: read `ENV.SITE_NAME` from a route head config and assert it appears in prerendered HTML. |
-| R3 | Tailwind v4 + plugin order | Use the verified order from R1. |
-| R4 | Static prerender / hydration mismatch | Single route + zero interactivity in v1; mismatch surface is small. |
+| R1 | vp + Tanstack Start compat | RESOLVED (PR #11 GREEN). Not blocking v1 because TS Start is deferred. Knowledge retained for future migration. |
+| R2 | varlock env not injected into Vite build | Already proven in current `apps/website` (`varlockVitePlugin()` + `import.meta.env`). No new risk. |
+| R3 | Tailwind v4 + Vite plugin compat | Tailwind v4 + `@tailwindcss/vite` is stable on Vite 8 (vite-plus 0.1.19). Verify in implementation by asserting a utility class hits the rendered DOM. |
+| R4 | Static prerender / hydration mismatch | DROPPED. Plain Vite SPA-shell has no SSR, hence no mismatch surface. |
 | R5 | `@oh/client` multi-entry build | Sidestepped by TS-source exports for v1. |
-| R6 | CF Pages routing on static SPA | Single route; catch-all 404 covers anything else. |
+| R6 | CF Pages routing on static SPA | Single route + `_redirects` fallback. |
 | R7 | Apex DNS swap interaction with existing zone services | Snapshot zone settings before swap; rollback path documented; smoke includes "email path still works" check. |
 
 ### Cycle position
 
 - Step 1 (Idea) — done in conversation.
 - Step 2 (Research) — `research.md`, `r1-spike-notes.md`, RFC `oh-monorepo-6mn`. Done. PR #11.
-- Step 3 (Prototype) — R1 spike at `apps/website-spike/`. Done. PR #11.
-- **Step 4 (PRD) — this document.**
+- Step 3 (Prototype) — R1 spike at `apps/website-spike/` (Tanstack Start path verified GREEN; not the v1 path per ADR 0007, retained as future-migration evidence). Done. PR #11.
+- **Step 4 (PRD) — this document, amended 2026-04-26 to defer Tanstack Start.**
+- Step 4.5 (ADR) — `docs/adr/0007-defer-tanstack-start.md` records the framework decision + revisit trigger.
 - Step 5 (Kanban) — `to-issues` skill breaks this PRD into vertical-slice bd issues.
-- Step 6 (Implementation) — TDD per slice.
+- Step 6 (Implementation) — TDD per slice. Burn-down deletes both the existing `apps/website/src/` demo content AND `apps/website-spike/`.
 - Step 7 (Code review) — `brooks-lint:brooks-review` on each PR.
 - Step 8 (Human QA) — `qa` skill on the deployed preview.
 - Step 9 (QA followups) — triage as bd issues.
