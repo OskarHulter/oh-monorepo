@@ -13,7 +13,7 @@ Can we replace [oskarhulter.com](https://oskarhulter.com/) with a landing-only M
 - **`apps/website` current contents:** `src/main.ts` (DOM template literals + counter), `src/site.config.ts` (varlock-driven `websiteSchema.parse` from `@oh/shared`), `src/style.css` (CSS variables, `@media (prefers-color-scheme)` dark mode), `index.html`, `public/{favicon.svg,icons.svg}`, `tests/site.config.test.ts` (Playwright browser test asserting metadata DOM injection), `.env.schema` (`SITE_NAME`, `SITE_URL`, `SITE_DESCRIPTION`, `SITE_LOCALE`, `SITE_THEME_COLOR`).
 - **`@oh/client` shape:** single-entry export `".": "./dist/index.mjs"` (`packages/client/package.json:17-19`), `vp pack` build with `dts.tsgo: true, exports: true`, src is a stub. Tests via `vite-plus/test`.
 - **`@oh/shared` reuse:** exports `websiteSchema` + `Website` type via TS source (`"." → "./src/index.ts"`), already consumed by `apps/website/src/site.config.ts`.
-- **Env stack:** root `.env.schema` (APP_ENV, LOG_LEVEL) + `apps/website/.env.schema` (SITE_*). Wired via `varlockVitePlugin()` in `apps/website/vite.config.ts:1`. Typegen via `vp run website#env:typegen` in root `package.json:24`. CI loads env via `dmno-dev/varlock-action` (`.github/workflows/ci.yml:27-29`).
+- **Env stack:** root `.env.schema` (APP*ENV, LOG_LEVEL) + `apps/website/.env.schema` (SITE*\*). Wired via `varlockVitePlugin()` in `apps/website/vite.config.ts:1`. Typegen via `vp run website#env:typegen` in root `package.json:24`. CI loads env via `dmno-dev/varlock-action` (`.github/workflows/ci.yml:27-29`).
 - **CI:** `voidzero-dev/setup-vp@v1.8.0` is the established setup action; runs `vp check`, `vp run -r test`, `vp run -r build` on PRs and main. No CF Pages workflow yet. Release pipeline via `changesets/action`.
 - **Engines:** Node ≥24, `pnpm@10.33.2`. Restricted-access Changesets, `updateInternalDependencies: patch`, private packages versioned for monorepo tracking.
 - **Ticketing/persistence:** `bd` (beads) is canonical; `MEMORY.md` lives at `~/.claude/projects/-Users-osh-Code-personal-oh-monorepo/memory/`.
@@ -77,22 +77,22 @@ Source: `examples/react/start-basic` from TanStack/router `main` (verified via r
 
 ## Risks (with verification plan)
 
-| # | Risk | Verify how | Severity |
-|---|---|---|---|
-| R1 | `vp dev`/`vp build` does not cooperate with `tanstackStart()` plugin chain | Spike a minimal Tanstack Start app inside `apps/website-spike/` (throwaway), run `vp dev` and `vp build`, observe | High |
-| R2 | Varlock env not injected into Tanstack Start client + server pipelines | After R1 spike, read `ENV.SITE_NAME` from a route component and a server function; confirm both | Med |
-| R3 | Tailwind v4 + vite-plus + Tanstack Start plugin order conflict | Add `@tailwindcss/vite` per example; verify utility class shows up in built HTML | Med |
-| R4 | Static prerender misses some routes / hydration mismatch | Run prerender on the landing route only (single-page MVP); diff served HTML vs hydrated DOM | Low (MVP has 1 route) |
-| R5 | `@oh/client` `vp pack` cannot produce multi-entry subpath bundles | Update `packages/client/vite.config.ts` to declare entries; run `vp pack`; inspect `dist/` for `ui.mjs` + `features.mjs` | Med |
-| R6 | CF Pages misroutes SPA fallback / asset paths | Deploy preview to `preview.oskarhulter.com`; verify direct route hits + assets + 404 | Low (single page) |
-| R7 | Apex DNS swap breaks email obfuscation or other CF zone services | Inventory current zone settings before swap; document rollback (point apex back to prior origin) | Med |
+| #   | Risk                                                                       | Verify how                                                                                                               | Severity              |
+| --- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------- |
+| R1  | `vp dev`/`vp build` does not cooperate with `tanstackStart()` plugin chain | Spike a minimal Tanstack Start app inside `apps/website-spike/` (throwaway), run `vp dev` and `vp build`, observe        | High                  |
+| R2  | Varlock env not injected into Tanstack Start client + server pipelines     | After R1 spike, read `ENV.SITE_NAME` from a route component and a server function; confirm both                          | Med                   |
+| R3  | Tailwind v4 + vite-plus + Tanstack Start plugin order conflict             | Add `@tailwindcss/vite` per example; verify utility class shows up in built HTML                                         | Med                   |
+| R4  | Static prerender misses some routes / hydration mismatch                   | Run prerender on the landing route only (single-page MVP); diff served HTML vs hydrated DOM                              | Low (MVP has 1 route) |
+| R5  | `@oh/client` `vp pack` cannot produce multi-entry subpath bundles          | Update `packages/client/vite.config.ts` to declare entries; run `vp pack`; inspect `dist/` for `ui.mjs` + `features.mjs` | Med                   |
+| R6  | CF Pages misroutes SPA fallback / asset paths                              | Deploy preview to `preview.oskarhulter.com`; verify direct route hits + assets + 404                                     | Low (single page)     |
+| R7  | Apex DNS swap breaks email obfuscation or other CF zone services           | Inventory current zone settings before swap; document rollback (point apex back to prior origin)                         | Med                   |
 
 ## Open questions
 
 1. **Plain-Vite fallback boundary:** if R1 forces a fallback, do we keep `vp lint`/`vp fmt`/`vp check`/`vp test` (likely yes) and only swap `vp dev`/`vp build` for native `vite`? Locking that boundary up front shrinks the blast radius.
 2. **Where do Tanstack Start route files live?** `src/routes/__root.tsx` + `src/routes/index.tsx` is the convention — confirm under `apps/website/src/routes/`. Index route imports from `@oh/client/ui`/`features`.
 3. **Tailwind tokens — co-located with `@oh/client/ui` or in `apps/website`?** Picks downstream styling reuse. Lean toward `@oh/client/ui` exporting `styles.css` so future apps share tokens.
-4. **`@oh/client` build strategy:** dual-entry tsdown via `vp pack`, OR shift `@oh/client` to TS-source exports like `@oh/shared` (no build, faster dev). Library publish goal might force a build, but for *internal* consumption source-export is simpler.
+4. **`@oh/client` build strategy:** dual-entry tsdown via `vp pack`, OR shift `@oh/client` to TS-source exports like `@oh/shared` (no build, faster dev). Library publish goal might force a build, but for _internal_ consumption source-export is simpler.
 5. **CF Pages project**: GitHub Pages-integration (auto-build on push) vs Wrangler-CLI deploy from CI. Prefer the latter for env parity with future Workers projects.
 6. **Test surface:** do we keep Playwright as the test runner (slow, browser-real) or shift basic metadata assertions to a fast prerendered-HTML check + Playwright only for hydration/UX?
 
@@ -106,7 +106,7 @@ Three candidate cuts (no proposals yet — just clusters):
 
 - Cluster: components + tokens + (eventually) primitives like `Button`, `Stack`, `Heading`.
 - Why coupled: shared Tailwind tokens, shared accessibility/keyboard patterns, shared theming.
-- Dependency category: framework-bound (React + Tailwind v4) — the *tokens* are non-framework data, the *components* are framework adapters around them.
+- Dependency category: framework-bound (React + Tailwind v4) — the _tokens_ are non-framework data, the _components_ are framework adapters around them.
 - Test impact: today none. Post-deepening, boundary tests are rendered-output snapshots + Cosmos fixtures (per `oh-monorepo-su7`). Component-internal logic disappears from the public API.
 
 ### Candidate 2 — `@oh/client/features` as feature hooks owning data + UX behavior
@@ -148,7 +148,7 @@ If R1 fails outright (vp + Tanstack Start truly incompatible at this RC), the pl
 
 ## Cross-references (context, not scope)
 
-These tickets are *adjacent* roadmap surface — explicitly out of this tracer's scope, but the tracer's choices should not foreclose them:
+These tickets are _adjacent_ roadmap surface — explicitly out of this tracer's scope, but the tracer's choices should not foreclose them:
 
 - P2 cluster: `oh-monorepo-te9` (auth), `oh-monorepo-jn4` (Sentry), `oh-monorepo-vf4` (PostHog), `oh-monorepo-6is` (Infisical via varlock), `oh-monorepo-4dn` (Drizzle), `oh-monorepo-b4c` (charts), `oh-monorepo-cgt` (animation/shaders), `oh-monorepo-su7` (react-cosmos), `oh-monorepo-tfx` (CF-only area), `oh-monorepo-yts` (web perf), `oh-monorepo-lgb` (security scanning).
 - P3 cluster: `oh-monorepo-2th` (SigNoz), `oh-monorepo-8it` (OpenFeature+GrowthBook), `oh-monorepo-b4b` (DuckDB local-first), `oh-monorepo-ctc` (Convex vs Drizzle+DO), `oh-monorepo-6iu` (Unkey), `oh-monorepo-fhi` (IaC), `oh-monorepo-qpi` (SkillForge + perf), `oh-monorepo-y9a` (bot lane incl. Turnstile + Turnkey), `oh-monorepo-4e2` (misc repo eval), `oh-monorepo-e00` (openapi-changes).

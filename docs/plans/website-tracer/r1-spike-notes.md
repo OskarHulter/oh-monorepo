@@ -54,6 +54,7 @@ Three Vite environments (client / SSR / nitro) built in ~450 ms total. Default N
 ## What `vp dev` did
 
 `curl localhost:3000/` returned **HTTP 200, ~2.88 KB**, server-rendered HTML containing:
+
 - `<title>website-spike</title>` from the root route head config.
 - `<link rel="stylesheet" href="/src/styles/app.css">` (dev mode, unprocessed).
 - `<link rel="stylesheet" href="/@tanstack-start/styles.css?routes=__root__%2C%2F">` (Tanstack-injected dev styles).

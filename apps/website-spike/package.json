@@ -3,8 +3,8 @@
   "name": "@oh/website-spike",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "description": "THROWAWAY R1 spike — verify Tanstack Start RC on top of vite-plus. Delete after research.",
+  "type": "module",
   "scripts": {
     "dev": "vp dev",
     "build": "vp build",
