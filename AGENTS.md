@@ -87,11 +87,22 @@ For GitHub Actions, consider using [`voidzero-dev/setup-vp`](https://github.com/
 - [ ] Run `vp check` and `vp test` to validate changes.
 <!--VITE PLUS END-->
 
-## Environment Variables
+## Communication Style
 
-Always refer to https://varlock.dev/llms.txt when interacting with environment variables. This project uses `varlock` with `@varlock/vite-integration`; schemas live in `.env.schema` files (root + per-app).
+Each point should provide the context, the core and connection, from the perspective of the audience.
 
-## Coding Guidelines (Karpathy)
+1. **Context** - Why is this relevant?
+2. **Core** - What is the main takeaway?
+3. **Connection** - How is this connected to their goals and desires?
+
+Respect the readers time by shortening explanations and minimizing prose. Trust the user to ask for more details if they want it.
+
+- Know the context. Understand things like how this fits with the KPIs and relates to upcoming changes.
+- Understand the need. Learn to differentiate between what users are asking for and what they really need.
+- Consider the execution. Are you aware of the intricate network of dependencies and their interlock that are needed to deliver something?
+- Arrange the sequence. Apply a quick acid test to ensure it fits your criteria (contributes to goals, benefits a user, etc.)
+
+## Coding Guidelines
 
 Always apply when writing, reviewing, or refactoring code:
 
@@ -100,11 +111,13 @@ Always apply when writing, reviewing, or refactoring code:
 3. **Surgical changes** — touch only what you must, match existing style
 4. **Goal-driven execution** — define verifiable success criteria, loop until verified
 
-Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+- Always use Context7 when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+- Always refer to https://varlock.dev/llms.txt when interacting with environment variables. This project uses `varlock` with `@varlock/vite-integration`; schemas live in `.env.schema` files (root + per-app).
 
 ## Project Skills
 
-Project skills: [`.claude/skills/`](./.claude/skills/README.md). Map to [feature dev process](./docs/feature-dev-process/README.md). Claude Code auto-loads; other harnesses paste `SKILL.md` into conversation.
+- To interact successfully, consider the settings from [`agent-permissions.md`](./docs/feature-dev-process/agent-permissions.md#filesystem).
+- The project skills in [`.claude/skills/`](./.claude/skills/README.md) maps to [feature dev process](./docs/feature-dev-process/README.md).
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 

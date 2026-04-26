@@ -12,6 +12,7 @@ Each ADR is a single file under [`adr/`](./adr). Start a new ADR by copying the 
 - 0004 · _Adopted_ · [Validate trust boundaries](0004-validate-trust-boundaries.md)
 - 0005 · _Adopted_ · [Vitest e2e testing](0005-vitest-e2e-testing.md)
 - 0006 · _Adopted_ · [CI risk mitigation](0006-ci-risk-mitigation.md)
+- 0007 · _Adopted_ · [Defer Tanstack Start adoption to first dynamic route](0007-defer-tanstack-start.md)
 
 ## Template
 
