@@ -139,10 +139,8 @@ bd close <id>         # Complete work
 4. **PUSH TO REMOTE** - This is MANDATORY:
    ```bash
    git pull --rebase
-   bd backup sync         # off-machine bd backup; see docs/operations/beads-backup.md
    git push
    git status             # MUST show "up to date with origin"
-   bd backup status       # 'Last backup' should be recent; destination must be set
    ```
 5. **Clean up** - Clear stashes, prune remote branches
 6. **Verify** - All changes committed AND pushed
@@ -161,4 +159,4 @@ bd close <id>         # Complete work
 Outside managed `BEADS INTEGRATION` block. Survives `bd` regen.
 
 - **No `bd edit`** — opens `$EDITOR`, blocks agent. Use `bd update` inline flags: `--title`, `--description`, `--notes`, `--design`, `--status`, `--priority`.
-- **Session-close: `bd backup sync` not `bd dolt push`.** No Dolt remote configured. See [`docs/operations/beads-backup.md`](./docs/operations/beads-backup.md). Managed block stale → prefer this.
+- **Skip `bd dolt push` in session-close.** No Dolt remote configured; off-machine backup deferred. Local `.beads/backup/*.darc` 15-min snapshots cover in-disk recovery only.
