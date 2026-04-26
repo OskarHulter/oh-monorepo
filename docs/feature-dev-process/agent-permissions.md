@@ -53,7 +53,8 @@ Applied via **Settings → Rules → Rulesets**. Server enforces these so the lo
 
 ### Filesystem
 
-- `mkdir -p`, `cp`, `mv`, `rimraf <repo-path>`
+- `mkdir -p`, `cp`, `mv`
+- `rimraf` — repo-relative paths only (`node_modules`, `dist`, `coverage`, `.turbo`, `.vp/`, `packages/*`, `apps/*`). Absolute (`rimraf /*`), home (`rimraf ~*`), and parent-relative (`rimraf ../*`) are denied.
 - `find`, `rg`, `grep`, `tree`, `wc`
 
 ### Misc
@@ -71,7 +72,7 @@ Applied via **Settings → Rules → Rulesets**. Server enforces these so the lo
 - `git reset --hard origin/main|main`
 - `git config --global *`
 - `gh api -X DELETE *`, `gh repo delete`, `gh secret set|delete`, `gh release create|delete|edit`, `gh workflow disable`
-- `rm -rf /*`, `rm -rf ~*`, `chmod -R *`, `sudo *`
+- `rm -rf /*`, `rm -rf ~*`, `rimraf /*`, `rimraf ~*`, `rimraf ../*`, `chmod -R *`, `sudo *`
 
 ## Permission file
 
