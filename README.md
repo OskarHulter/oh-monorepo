@@ -27,3 +27,7 @@ vp run -r build
 ```bash
 vp run dev
 ```
+
+## Workflow
+
+Feature dev cycle + agent permissions: [`docs/feature-dev-process/`](./docs/feature-dev-process/README.md).

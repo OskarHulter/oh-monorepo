@@ -104,7 +104,7 @@ Always use Context7 when I need library/API documentation, code generation, setu
 
 ## Project Skills
 
-Project skills live in [`.claude/skills/`](./.claude/skills/README.md) — distilled, repo-specific agent instructions that map to the [feature dev process](./docs/feature-dev-process/README.md). Claude Code auto-loads them; in other harnesses, paste the relevant `SKILL.md` into the conversation.
+Project skills: [`.claude/skills/`](./.claude/skills/README.md). Map to [feature dev process](./docs/feature-dev-process/README.md). Claude Code auto-loads; other harnesses paste `SKILL.md` into conversation.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 
