@@ -1,32 +1,25 @@
 # Branch Protection — `main`
 
-Rules that make the agent-driven feature dev workflow safe. Pairs with [`agent-permissions.md`](./agent-permissions.md): the agent gets a broad allowlist for `git push`/`gh pr *` because the server enforces the actual safety boundary.
+Server enforces real safety boundary so [`agent-permissions.md`](./agent-permissions.md) allowlist stays broad. Applied via **Settings → Rules → Rulesets**.
 
-## Required rules
+## Rules on `main`
 
-- **Block force pushes** — no rewriting `main`. Agents may force-push their own feature branches with `--force-with-lease`, never `main`.
-- **Require pull request before merging** — every change lands via PR. Direct push to `main` denied.
-- **Require linear history** — squash or rebase merge only. No merge commits. Keeps `git log main` readable.
-- **Require review from Code Owners** — needs [`.github/CODEOWNERS`](../../.github/CODEOWNERS) to enforce. Owner: `@OskarHulter` for everything by default.
-- **Require status checks to pass** — at minimum: the existing CI job from `.github/workflows/ci.yml`. Add release/security workflows as they stabilise.
-- **Require branches to be up to date before merging** — forces `git pull --rebase origin/main` before merge; catches drift early.
-- **Block deletions** — `main` cannot be deleted accidentally.
+- **Block force-push.** No history rewrite. Feature branches still allow `--force-with-lease`.
+- **Require PR before merge.** No direct push.
+- **Linear history.** Squash or rebase merge only. No merge commits.
+- **Code Owners review.** Needs [`.github/CODEOWNERS`](../../.github/CODEOWNERS) — without it rule passes empty.
+- **CI green.** Status check context = `check` (job name from `.github/workflows/ci.yml`). Re-add when more required checks ship.
+- **Branch up-to-date before merge.** Catches drift.
+- **Block deletion.**
 
-## Optional but recommended
+## Optional
 
-- **Require signed commits** — only if you have GPG/SSH signing set up; otherwise this blocks every PR.
-- **Restrict who can push** — limit to `@OskarHulter` plus any agents with their own GitHub identity.
-- **Require conversation resolution before merging** — forces explicit "resolve" on review threads.
+- **Signed commits** — only with GPG/SSH set up, else blocks every PR.
+- **Conversation resolution required** — force "resolve" on threads.
 
-## Code Owners
+## Reproduce via `gh api`
 
-GitHub auto-assigns the repo creator as admin, but the **"require review from Code Owners"** rule needs a `CODEOWNERS` file in `.github/`, `docs/`, or repo root to have anything to enforce. Without that file the rule passes vacuously and grants no protection.
-
-Current rule: `* @OskarHulter` — everything requires owner review. Refine when collaborators join (e.g. `apps/website/** @frontend-team`).
-
-## Apply via `gh` (GitHub Rulesets)
-
-GitHub recommends Rulesets over classic branch protection. Save the JSON below and apply once:
+Reference only; ruleset already applied via UI.
 
 ```bash
 cat > /tmp/main-ruleset.json <<'JSON'
@@ -45,7 +38,6 @@ cat > /tmp/main-ruleset.json <<'JSON'
         "required_approving_review_count": 1,
         "require_code_owner_review": true,
         "dismiss_stale_reviews_on_push": true,
-        "require_last_push_approval": false,
         "required_review_thread_resolution": true
       }
     },
@@ -53,31 +45,21 @@ cat > /tmp/main-ruleset.json <<'JSON'
       "type": "required_status_checks",
       "parameters": {
         "strict_required_status_checks_policy": true,
-        "required_status_checks": [
-          { "context": "ci" }
-        ]
+        "required_status_checks": [{ "context": "check" }]
       }
     }
-  ],
-  "bypass_actors": []
+  ]
 }
 JSON
 
-gh api \
-  --method POST \
-  -H "Accept: application/vnd.github+json" \
-  /repos/OskarHulter/oh-monorepo/rulesets \
-  --input /tmp/main-ruleset.json
+gh api --method POST -H "Accept: application/vnd.github+json" \
+  /repos/OskarHulter/oh-monorepo/rulesets --input /tmp/main-ruleset.json
 ```
-
-Verify in the web UI: **Settings → Rules → Rulesets**.
 
 ## Agent implications
 
-With these rules in place, the agent allowlist in [`agent-permissions.md`](./agent-permissions.md) can be broad without being dangerous:
-
-- `git push origin <feature-branch>` — fine, branch isn't `main`.
-- `git push --force-with-lease origin <feature-branch>` — fine.
-- `git push origin main` — server rejects.
-- `gh pr merge` — only succeeds when CODEOWNERS approval + CI green + linear history.
-- `gh pr create --allow-edits` — safe; maintainer (you) can still force-push the PR branch if needed.
+- `git push origin <branch>` → ✓
+- `git push --force-with-lease origin <branch>` → ✓
+- `git push origin main` → ✗ server rejects
+- `gh pr merge --squash` → ✓ only after Code Owners approve + CI green
+- `gh pr create --allow-edits` → ✓ maintainer can push to PR branch
