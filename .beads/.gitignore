@@ -2,8 +2,8 @@
 dolt/
 embeddeddolt/
 
-# JSONL export — Dolt is source of truth, JSONL stays on disk for portability
-# but is not tracked. Sync via `bd dolt push/pull`.
+# JSONL export — Dolt is source of truth; JSONL stays on disk for portability
+# but is not tracked. No off-machine sync configured.
 issues.jsonl
 
 # Runtime files

@@ -49,7 +49,7 @@ Applied via **Settings → Rules → Rulesets**. Server enforces these so the lo
 - PR write: `gh pr create --allow-edits|edit|ready|comment|review|checkout`, `gh pr merge --squash|--rebase` (never `--merge`)
 - Issues: `gh issue list|view|create|edit|comment|close|reopen`
 - Repo/runs: `gh repo view`, `gh run list|view`, `gh workflow list|run|view`, `gh release list|view`
-- API GET: `gh api repos/.../actions/runs`, `gh api repos/.../tags`
+- API GET: `gh api repos/.../actions/runs`, `gh api repos/.../tags` (allow is broad-scoped to the repo; mutating methods `-X POST|PUT|PATCH|DELETE` and their `--method` aliases are explicitly denied)
 
 ### Filesystem
 
@@ -71,7 +71,7 @@ Applied via **Settings → Rules → Rulesets**. Server enforces these so the lo
 - `git rebase -i` — interactive blocks agent
 - `git reset --hard origin/main|main`
 - `git config --global *`
-- `gh api -X DELETE *`, `gh repo delete`, `gh secret set|delete`, `gh release create|delete|edit`, `gh workflow disable`
+- `gh api -X POST|PUT|PATCH|DELETE *` (and `--method` aliases), `gh repo delete`, `gh secret set|delete`, `gh release create|delete|edit`, `gh workflow disable`
 - `rm -rf /*`, `rm -rf ~*`, `rimraf /*`, `rimraf ~*`, `rimraf ../*`, `chmod -R *`, `sudo *`
 
 ## Permission file
