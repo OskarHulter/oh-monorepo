@@ -85,6 +85,7 @@ Adopt Tanstack Start when **any of**:
 3. Tanstack Start reaches 1.0 stable AND a feature on the roadmap actively benefits from it.
 
 Migration plan at that time:
+
 - Catalog `@tanstack/react-start`, `@tanstack/react-router`, `nitro` per the R1-verified versions (or current at the time).
 - Add the Vite plugin chain from R1: `tailwindcss`, `tanstackStart`, `viteReact`, `nitro`.
 - Move `apps/website/src/routes/` to Tanstack file-routing convention.

@@ -19,6 +19,7 @@ The library `@oh/client` is reshaped to the ports & adapters design from `oh-mon
 The framework choice is **decoupled from the RFC**: `@oh/client` is React + ports + adapters and works identically under plain Vite, Tanstack Start, or any other React host. Migration to Tanstack Start later is gated on a feature that earns it (per ADR 0007).
 
 When this ships:
+
 - Visitors hit a fast, fully prerendered landing page that respects their colour-scheme preference.
 - Search engines index correct title/description/OG metadata.
 - A single `vp build` in `apps/website` produces the static output that CF Pages serves.
@@ -80,12 +81,14 @@ When this ships:
 ### Modules to build / modify
 
 **`@oh/client` — kernel (`packages/client/src/`)**
+
 - `index.ts` — exports `Providers`, `usePorts`, port type re-exports.
 - `ports.ts` — cross-cutting port type definitions (`TelemetryPort`, `RouterPort`, `ThemePort`, `DataPort`, `Ports`).
 - `providers.tsx` — single `<Providers ports>` umbrella that puts ports onto a context. No QueryClient, no Suspense, no toast — those are consumer-owned for v1.
 - Replaces the current single-stub `index.ts`.
 
 **`@oh/client/ui` (`packages/client/src/ui/`)**
+
 - `index.ts` — high barrel re-exporting from `./components` and `./features`. The only public UI entry.
 - `styles.css` — Tailwind v4 entry (`@import "tailwindcss"`) and any `@theme` token block used by components.
 - `components/{hero,social-links,layout}/*` — presentational React components with co-located `*.fixture.tsx`.
@@ -93,9 +96,11 @@ When this ships:
 - `cosmos.config.ts` co-located convention; root config at package root.
 
 **`@oh/client/adapters/fixture` (`packages/client/src/adapters/fixture/`)**
+
 - `index.ts` — `createFixturePorts(seed?)` factory. Composes per-feature fixture impls (initially just social-links) into a `Ports` object with passthrough router/theme/telemetry implementations suitable for tests and Cosmos.
 
 **`apps/website` (rebuilt — plain Vite + React)**
+
 - Burn current `src/` (counter, vanilla template) but preserve: `public/{favicon.svg,icons.svg}`, `.env.schema`, `site.config.ts` shape (env → `@oh/shared/websiteSchema` → typed object), `tests/` (port to new structure).
 - `index.html` — single Vite entry; head metadata templated from `siteConfig` via `vite-plugin-html` or inline `%VITE_*%` placeholders.
 - New `src/main.tsx` — Vite/React entry; mounts the consumer-owned `<App>` into `#app`.
@@ -105,10 +110,12 @@ When this ships:
 - Optional: `vite-react-ssg` if static prerender HTML is wanted for SEO. Decision deferred to implementation; default is SPA-shell + hydrate.
 
 **Workspace catalog (`pnpm-workspace.yaml`)**
+
 - Add `react`, `react-dom`, `@vitejs/plugin-react`, `@tailwindcss/vite`, `tailwindcss`, `@types/react`, `@types/react-dom` as catalog entries so `apps/website` and `packages/client` share versions.
 - Do NOT add `@tanstack/react-router`, `@tanstack/react-start`, or `nitro` in v1 (they land when ADR 0007's revisit trigger fires).
 
 **CI / deploy (`.github/workflows/`)**
+
 - Add a Pages deploy workflow: build `apps/website` via `vp run website#build`, deploy `.output/public` to a CF Pages project via Wrangler (or CF Pages git integration if simpler at this stage).
 - Inject env at build time via Infisical CLI (`infisical run -- vp run website#build`) using a CI service token.
 - Existing CI workflow stays; new workflow only runs on the relevant feature/main branches.
@@ -204,15 +211,15 @@ The following are explicitly NOT in this PRD; each has its own bd ticket or road
 
 ### Risks (carrying forward from research, post-amendment)
 
-| # | Risk | Status / Mitigation |
-|---|---|---|
-| R1 | vp + Tanstack Start compat | RESOLVED (PR #11 GREEN). Not blocking v1 because TS Start is deferred. Knowledge retained for future migration. |
-| R2 | varlock env not injected into Vite build | Already proven in current `apps/website` (`varlockVitePlugin()` + `import.meta.env`). No new risk. |
-| R3 | Tailwind v4 + Vite plugin compat | Tailwind v4 + `@tailwindcss/vite` is stable on Vite 8 (vite-plus 0.1.19). Verify in implementation by asserting a utility class hits the rendered DOM. |
-| R4 | Static prerender / hydration mismatch | DROPPED. Plain Vite SPA-shell has no SSR, hence no mismatch surface. |
-| R5 | `@oh/client` multi-entry build | Sidestepped by TS-source exports for v1. |
-| R6 | CF Pages routing on static SPA | Single route + `_redirects` fallback. |
-| R7 | Apex DNS swap interaction with existing zone services | Snapshot zone settings before swap; rollback path documented; smoke includes "email path still works" check. |
+| #   | Risk                                                  | Status / Mitigation                                                                                                                                    |
+| --- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| R1  | vp + Tanstack Start compat                            | RESOLVED (PR #11 GREEN). Not blocking v1 because TS Start is deferred. Knowledge retained for future migration.                                        |
+| R2  | varlock env not injected into Vite build              | Already proven in current `apps/website` (`varlockVitePlugin()` + `import.meta.env`). No new risk.                                                     |
+| R3  | Tailwind v4 + Vite plugin compat                      | Tailwind v4 + `@tailwindcss/vite` is stable on Vite 8 (vite-plus 0.1.19). Verify in implementation by asserting a utility class hits the rendered DOM. |
+| R4  | Static prerender / hydration mismatch                 | DROPPED. Plain Vite SPA-shell has no SSR, hence no mismatch surface.                                                                                   |
+| R5  | `@oh/client` multi-entry build                        | Sidestepped by TS-source exports for v1.                                                                                                               |
+| R6  | CF Pages routing on static SPA                        | Single route + `_redirects` fallback.                                                                                                                  |
+| R7  | Apex DNS swap interaction with existing zone services | Snapshot zone settings before swap; rollback path documented; smoke includes "email path still works" check.                                           |
 
 ### Cycle position
 
