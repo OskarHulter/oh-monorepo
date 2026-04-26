@@ -11,11 +11,15 @@
     "directory": "packages/client"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "type": "module",
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -34,10 +38,18 @@
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@typescript/native-preview": "7.0.0-dev.20260328.1",
     "bumpp": "^11.0.1",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "rimraf": "catalog:",
     "typescript": "^6.0.2",
     "vite-plus": "^0.1.14"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
