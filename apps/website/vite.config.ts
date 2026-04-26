@@ -4,25 +4,27 @@ import viteReact from '@vitejs/plugin-react'
 import { defineConfig } from 'vite-plus'
 import { playwright } from 'vite-plus/test/browser-playwright'
 
-// Interpolate %SITE_*% placeholders in index.html from process.env at
-// transform time. Vite's built-in %VAR% interpolation only handles VITE_*
-// prefixed names; varlock's SITE_* schema lives outside that prefix.
+// Interpolate %SITE_*% placeholders in index.html at transform time. Vite's
+// built-in %VAR% interpolation only handles VITE_*-prefixed names; varlock's
+// SITE_* schema lives outside that prefix.
 //
 // Hardening:
-// - Allowlist of SITE_* keys; arbitrary %X% (e.g. %PATH%, %HOME%) is left as
-//   a literal placeholder, which surfaces in dist/index.html as a typo signal.
-// - Values are HTML-attribute-escaped before substitution to avoid
-//   quote/angle-bracket injection.
-// - Optional vars that are unset emit an empty string. The wrapping <meta>
-//   tag still ships with empty content; pruning empty tags is left for a
-//   future iteration if SEO testing flags it.
-const SITE_ENV_KEYS = new Set([
-  'SITE_NAME',
-  'SITE_URL',
-  'SITE_DESCRIPTION',
-  'SITE_LOCALE',
-  'SITE_THEME_COLOR',
-])
+// - Regex restricted to %SITE_*%; arbitrary placeholders (e.g. %PATH%,
+//   %HOME%) are left as literals so typos surface in dist/index.html
+//   instead of leaking unrelated env.
+// - Values are HTML-attribute-escaped before substitution.
+// - Unset / empty values emit an empty string.
+//
+// Source of truth: process.env. `varlockVitePlugin()` runs first in the
+// plugin chain (see `plugins:` order below) and populates process.env with
+// the schema-resolved values — including .env.schema defaults — before any
+// transformIndexHtml hook fires. Verified at build time: dist/index.html
+// contains the resolved siteConfig.name + description + OG metadata even
+// when the corresponding shell env vars are unset locally.
+//
+// Sourcing from `varlock/env` directly was attempted; the ENV proxy
+// intercepts `.then` access during dynamic-import resolution and breaks the
+// async build. process.env is the working seam.
 
 function escapeHtmlAttribute(value: string): string {
   return value
@@ -38,8 +40,7 @@ const interpolateEnvInHtml = () => ({
   transformIndexHtml: {
     order: 'pre' as const,
     handler(html: string) {
-      return html.replace(/%([A-Z][A-Z0-9_]*)%/g, (match, key: string) => {
-        if (!SITE_ENV_KEYS.has(key)) return match
+      return html.replace(/%(SITE_[A-Z0-9_]*)%/g, (_match, key: string) => {
         const value = process.env[key]
         if (value === undefined || value === '') return ''
         return escapeHtmlAttribute(value)
