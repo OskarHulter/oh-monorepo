@@ -18,7 +18,7 @@ Most skills here are distilled from [Matt Pocock's skills repo](https://github.c
 - [`qa`](./qa/SKILL.md) — interactive human QA, file issues from findings (step H)
 - [`triage-issue`](./triage-issue/SKILL.md) — root-cause a defect, file a TDD fix plan (step I)
 
-Ties together: [`docs/feature-dev-process/README.md`](../../docs/feature-dev-process/README.md).
+Full dev process: [`docs/feature-dev-process/README.md`](../../docs/feature-dev-process/README.md).
 
 ## How to invoke
 
