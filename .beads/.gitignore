@@ -2,6 +2,10 @@
 dolt/
 embeddeddolt/
 
+# JSONL export — Dolt is source of truth, JSONL stays on disk for portability
+# but is not tracked. Sync via `bd dolt push/pull`.
+issues.jsonl
+
 # Runtime files
 bd.sock
 bd.sock.startlock
