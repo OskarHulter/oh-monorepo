@@ -11,7 +11,7 @@ const fixturePorts: Ports = {
   },
   router: {
     push: () => undefined,
-    useParams: <T extends Record<string, string>>() => ({}) as T,
+    useParams: <T extends Record<string, string | undefined>>() => ({}) as T,
     Link: ({ children }) => <>{children}</>,
   },
   theme: {
