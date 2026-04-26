@@ -8,18 +8,26 @@ test('siteConfig parses with expected shape', () => {
   expect(siteConfig.locale).toBe('en-US')
 })
 
-test('main.ts applies siteConfig to document metadata', async () => {
-  const app = document.createElement('div')
-  app.id = 'app'
-  document.body.replaceChildren(app)
-  await import('../src/main.ts')
+test('App renders siteConfig name with a Tailwind utility class applied', async () => {
+  const root = document.createElement('div')
+  root.id = 'app'
+  document.body.replaceChildren(root)
 
-  expect(document.title).toBe(siteConfig.name)
-  expect(document.documentElement.lang).toBe(siteConfig.locale)
-  expect(document.querySelector<HTMLMetaElement>('meta[name="description"]')?.content).toBe(
-    siteConfig.description,
-  )
-  expect(document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.content).toBe(
-    siteConfig.themeColor,
-  )
+  const [{ createRoot }, { App }, { StrictMode, createElement }] = await Promise.all([
+    import('react-dom/client'),
+    import('../src/app.tsx'),
+    import('react'),
+  ])
+
+  createRoot(root).render(createElement(StrictMode, null, createElement(App)))
+
+  // Wait one microtask + one task tick for React 19 to flush
+  await new Promise((resolve) => setTimeout(resolve, 0))
+
+  const heading = root.querySelector('h1')
+  expect(heading?.textContent).toBe(siteConfig.name)
+
+  const main = root.querySelector('main')
+  // Tailwind v4 utility class survived the build chain
+  expect(main?.className).toContain('min-h-screen')
 })
