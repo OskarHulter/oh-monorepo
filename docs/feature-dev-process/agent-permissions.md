@@ -55,6 +55,7 @@ Applied via **Settings → Rules → Rulesets**. Server enforces these so the lo
 
 - `mkdir -p`, `cp`, `mv`
 - `rimraf` — repo-relative paths only (`node_modules`, `dist`, `coverage`, `.turbo`, `.vp/`, `packages/*`, `apps/*`). Absolute (`rimraf /*`), home (`rimraf ~*`), and parent-relative (`rimraf ../*`) are denied.
+  - **One arg only.** Prefix-glob matches first arg; safe first + unsafe later sneaks past (`rimraf node_modules /tmp/foo` matches allow). Repo rule (AGENTS.md): single-arg rimraf.
 - `find`, `rg`, `grep`, `tree`, `wc`
 
 ### Misc
