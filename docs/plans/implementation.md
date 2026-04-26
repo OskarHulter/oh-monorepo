@@ -76,7 +76,7 @@ The Ralph Loop runs **unsupervised**, so its allowlist is tighter than the [gene
 - **`--permission-mode acceptEdits`** — load-bearing. Without it the loop stalls on every Edit/Write prompt.
 - **Project-scoped allowlist** — `Edit(<repo>/**)`, `Write(<repo>/**)` so the agent can work without prompts inside the repo.
 - **Denylist for destructive commands** — `Bash(rm *)`, force-push, `git reset --hard`. Give the agent the rope it needs and not a meter more.
-- **Server-side guardrails** — assumes [`branch-protection.md`](../operations/branch-protection.md) is applied to `main` so a stray `git push origin main` is rejected.
+- **Server-side guardrails** — assumes the branch protection ruleset documented in [`agent-permissions.md`](../operations/agent-permissions.md#assumed-branch-protection-on-main) is applied to `main` so a stray `git push origin main` is rejected.
 
 ### On failure
 

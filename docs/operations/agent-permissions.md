@@ -1,8 +1,18 @@
 # Agent Permissions
 
-- Default human-in-the-loop allowlist
-- Server boundary: [`branch-protection.md`](./branch-protection.md)
-- Strict autonomous loop: [`docs/plans/implementation.md`](../plans/implementation.md#required-permissions)
+Strict autonomous loop: see [`docs/plans/implementation.md`](../plans/implementation.md#required-permissions).
+
+## Assumed branch protection on `main`
+
+Applied via **Settings → Rules → Rulesets**. Server enforces these so the local allowlist below stays broad.
+
+- Block force-push (feature branches still allow `--force-with-lease`)
+- Require PR before merge
+- Linear history (squash or rebase merge; no merge commits)
+- Code Owners review — enforced by [`.github/CODEOWNERS`](../../.github/CODEOWNERS)
+- CI green — required check: `check` (job from `.github/workflows/ci.yml`)
+- Branch up-to-date before merge
+- Block deletion
 
 ## Posture
 
@@ -63,46 +73,9 @@
 - `gh api -X DELETE *`, `gh repo delete`, `gh secret set|delete`, `gh release create|delete|edit`, `gh workflow disable`
 - `rm -rf /*`, `rm -rf ~*`, `chmod -R *`, `sudo *`
 
-## `--allow-edits`
-
-- Default for agent PRs
-- Lets maintainers push to PR branch
-- Meaningful on fork PRs; harmless on same-repo
-
 ## Permission file
 
 - `.claude/settings.json` — hooks (gitignored under `.claude/*`)
 - `.claude/settings.local.json` — per-machine permissions (gitignored)
 - Matchers = prefix-globs; deny > allow
-
-```jsonc
-{
-  "permissions": {
-    "allow": [
-      "Bash(vp *)",
-      "Bash(bd *)",
-      "Bash(git push origin *)",
-      "Bash(git push --force-with-lease origin *)",
-      "Bash(gh pr *)",
-      "Bash(gh issue *)",
-      "Bash(gh run *)",
-      "Bash(gh api repos/OskarHulter/*)",
-      "Bash(rimraf *)",
-    ],
-    "deny": [
-      "Bash(git push origin main*)",
-      "Bash(git push --force *)",
-      "Bash(git push --no-verify *)",
-      "Bash(git rebase -i *)",
-      "Bash(gh api -X DELETE *)",
-      "Bash(gh release create *)",
-    ],
-  },
-}
-```
-
-## Why broad is OK
-
-- Server blocks main writes + force-push (see [`branch-protection.md`](./branch-protection.md))
-- Local denylist gates only: repo escapes, agent blockers, server-irreversible ops
-- Everything else reversible via `git revert` / `gh pr close` / `bd reopen`
+- `gh pr create --allow-edits` is the default — lets maintainers push to PR branch
