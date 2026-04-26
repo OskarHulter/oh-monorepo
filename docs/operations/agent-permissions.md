@@ -14,6 +14,7 @@ For the **strict autonomous loop** that ships unsupervised work, see [`docs/plan
 ## Safe to allowlist
 
 ### Vite+ (`vp`)
+
 - `vp install` (`vp i`), `vp check`, `vp test`, `vp lint`, `vp fmt`
 - `vp build`, `vp pack`, `vp preview`, `vp run <script>`
 - `vp dev` (long-running — use `run_in_background`)
@@ -21,12 +22,14 @@ For the **strict autonomous loop** that ships unsupervised work, see [`docs/plan
 - `vp add`, `vp remove` (`vp rm`/`un`/`uninstall`), `vp update` (`vp up`), `vp dedupe`, `vp outdated`, `vp list` (`vp ls`), `vp why`, `vp info`
 
 ### Beads (`bd`)
+
 - Read: `bd ready`, `bd list`, `bd show`, `bd search`, `bd stats`, `bd blocked`, `bd memories`, `bd doctor`
 - Write: `bd create`, `bd update`, `bd close`, `bd reopen`, `bd dep add`, `bd note`, `bd remember`, `bd defer`
 - Sync: `bd backup sync`, `bd backup status` — see [`beads-backup.md`](./beads-backup.md)
 - **Avoid**: `bd edit` (opens `$EDITOR`, blocks the agent)
 
 ### Git
+
 - Read: `git status`, `git diff`, `git log`, `git show`, `git blame`, `git branch`, `git remote -v`, `git stash list`
 - Write: `git add`, `git commit`, `git push origin <feature-branch>`, `git push --force-with-lease origin <feature-branch>`
 - Branching: `git checkout`, `git switch`, `git branch <name>`, `git merge --ff-only`, `git rebase` (non-interactive), `git rebase --continue`, `git rebase --abort`
@@ -34,6 +37,7 @@ For the **strict autonomous loop** that ships unsupervised work, see [`docs/plan
 - **Deny**: `git push origin main` (server rejects anyway), `git push --force` (use `--force-with-lease`), `git rebase -i` (interactive blocks the agent), `git reset --hard origin/main` on `main`, `git push --no-verify`, `git config --global *`
 
 ### GitHub CLI (`gh`)
+
 - PR read: `gh pr list`, `gh pr view`, `gh pr diff`, `gh pr status`, `gh pr checks`
 - PR write: `gh pr create --allow-edits` (default to `--allow-edits` so maintainers can fix the branch), `gh pr edit`, `gh pr ready`, `gh pr comment`, `gh pr review`, `gh pr checkout`, `gh pr merge --squash` (or `--rebase`; never `--merge` — violates linear history)
 - Issues: `gh issue list/view/create/edit/comment/close/reopen`
@@ -42,11 +46,13 @@ For the **strict autonomous loop** that ships unsupervised work, see [`docs/plan
 - **Deny / confirm**: `gh release create/delete/edit`, `gh api -X DELETE`, `gh repo delete`, `gh secret set/delete`, `gh workflow disable`
 
 ### Filesystem
+
 - `mkdir -p`, `cp`, `mv`, `rimraf <repo-relative-path>`
 - `find`, `rg`, `grep`, `tree`, `wc`
 - **Deny**: `rm -rf` outside the repo, `chmod -R` on system paths
 
 ### Misc
+
 - `node --version`, `corepack enable`
 - `gh auth status` (read), `gh auth login` (interactive — needs human)
 
@@ -70,7 +76,7 @@ The repo's `.claude/settings.json` carries hooks. Per-machine permissions belong
       "Bash(gh issue *)",
       "Bash(gh run *)",
       "Bash(gh api repos/OskarHulter/*)",
-      "Bash(rimraf *)"
+      "Bash(rimraf *)",
     ],
     "deny": [
       "Bash(git push origin main)",
@@ -78,9 +84,9 @@ The repo's `.claude/settings.json` carries hooks. Per-machine permissions belong
       "Bash(git push --no-verify *)",
       "Bash(git rebase -i *)",
       "Bash(gh api -X DELETE *)",
-      "Bash(gh release create *)"
-    ]
-  }
+      "Bash(gh release create *)",
+    ],
+  },
 }
 ```
 
