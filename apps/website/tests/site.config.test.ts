@@ -38,9 +38,10 @@ test('App renders siteConfig name with a Tailwind utility class applied', async 
 
     // Strong assertion: Tailwind generated CSS for `min-h-screen` AND it's
     // applied to the rendered element. Catches a broken Tailwind chain that
-    // a className-only check would miss.
+    // a className-only check would miss. getComputedStyle resolves `100vh`
+    // to a pixel length, so compare against the live viewport height.
     expect(main).not.toBeNull()
-    expect(getComputedStyle(main!).minHeight).toBe('100vh')
+    expect(parseFloat(getComputedStyle(main!).minHeight)).toBeCloseTo(window.innerHeight, 0)
   } finally {
     // Unmount so React state / effects / handlers don't leak into the next test
     // when running browser-mode suites in shared windows.

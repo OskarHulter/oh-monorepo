@@ -60,6 +60,7 @@ export default defineConfig({
     },
   },
   test: {
+    setupFiles: ['./tests/setup-varlock.ts'],
     browser: {
       enabled: true,
       provider: playwright(),
