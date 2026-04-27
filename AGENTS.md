@@ -89,18 +89,7 @@ For GitHub Actions, consider using [`voidzero-dev/setup-vp`](https://github.com/
 
 ## Communication Style
 
-Each point should provide the context, the core and connection, from the perspective of the audience.
-
-1. **Context** - Why is this relevant?
-2. **Core** - What is the main takeaway?
-3. **Connection** - How is this connected to their goals and desires?
-
 Respect the readers time by shortening explanations and minimizing prose. Trust the user to ask for more details if they want it.
-
-- Know the context. Understand things like how this fits with the KPIs and relates to upcoming changes.
-- Understand the need. Learn to differentiate between what users are asking for and what they really need.
-- Consider the execution. Are you aware of the intricate network of dependencies and their interlock that are needed to deliver something?
-- Arrange the sequence. Apply a quick acid test to ensure it fits your criteria (contributes to goals, benefits a user, etc.)
 
 ## Coding Guidelines
 
