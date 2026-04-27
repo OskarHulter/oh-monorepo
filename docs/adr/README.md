@@ -17,6 +17,7 @@ Each ADR is a single file under [`adr/`](./adr). Start a new ADR by copying the 
 - 0009 · _Adopted_ · [Adopt Drizzle (ORM + Kit + Studio) as the SQL layer; defer per-workload DB picks](0009-adopt-drizzle-as-sql-layer.md)
 - 0010 · _Adopted_ · [Animation + shader stack — tiered, first-paint disciplined](0010-animation-shader-stack.md)
 - 0011 · _Adopted_ · [Per-surface ownership for chart libraries](0011-per-surface-chart-libraries.md)
+- 0012 · _Adopted_ · [Infisical as the secrets source-of-truth (via varlock)](0012-infisical-secrets-source.md)
 
 ## Template
 
