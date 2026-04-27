@@ -49,3 +49,34 @@ updates:
         update-types: [version-update:semver-major]
       - dependency-name: react-dom
         update-types: [version-update:semver-major]
+      # Type peers mirror their runtime — React/Node majors are manual.
+      - dependency-name: '@types/react'
+        update-types: [version-update:semver-major]
+      - dependency-name: '@types/react-dom'
+        update-types: [version-update:semver-major]
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
+      # TypeScript majors shift lib.d.ts and strictness — coordinated bump.
+      - dependency-name: typescript
+        update-types: [version-update:semver-major]
+      # tsgo preview — fast-moving, owned by the TS team's rollout cadence.
+      - dependency-name: '@typescript/native-preview'
+      # Tailwind v3→v4 was a rewrite; majors land deliberately.
+      - dependency-name: tailwindcss
+        update-types: [version-update:semver-major]
+      - dependency-name: '@tailwindcss/vite'
+        update-types: [version-update:semver-major]
+      # Playwright majors ship coordinated browser snapshot bumps.
+      - dependency-name: playwright
+        update-types: [version-update:semver-major]
+      # zod v3→v4 was breaking; majors are reviewed in isolation.
+      - dependency-name: zod
+        update-types: [version-update:semver-major]
+      # Logging API stability matters — pino majors land deliberately.
+      - dependency-name: pino
+        update-types: [version-update:semver-major]
+      # varlock owns its own major rollout cadence.
+      - dependency-name: varlock
+        update-types: [version-update:semver-major]
+      - dependency-name: '@varlock/*'
+        update-types: [version-update:semver-major]
