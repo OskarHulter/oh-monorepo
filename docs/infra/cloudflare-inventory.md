@@ -18,7 +18,7 @@ Single source of truth. If a service is CF-native and we use or plan to use it, 
 | ---------------- | ------------------------------------------------------------------- |
 | Compute          | Workers, Containers, Durable Objects, Pages                         |
 | Storage          | R2 (object), KV, D1 (SQLite), DO storage                            |
-| External PG pool | Hyperdrive — only when an external Postgres is already required    |
+| External PG pool | Hyperdrive — only when an external Postgres is already required     |
 | Async            | Queues, Workflows, Pipelines (streaming ingest)                     |
 | Data             | Analytics Engine, Vectorize                                         |
 | AI               | Workers AI                                                          |
@@ -31,23 +31,23 @@ IaC for CF lives on `oh-monorepo-fhi` (Terraform / OpenTofu vs Pulumi). Wrangler
 
 Translation table for AWS-shaped intuitions. The CF column is the chosen path; the AWS column is just the familiar name on the left. Non-CF managed services (Neon, Supabase, etc.) are deliberately excluded — they belong on their own cluster ticket if and when they're needed.
 
-| AWS             | Cloudflare                                                 | Adoption stage                                      |
-| --------------- | ---------------------------------------------------------- | --------------------------------------------------- |
-| CloudFormation  | Terraform / OpenTofu CF provider OR Pulumi (no native CFN) | when >2 services exist (tracked: `oh-monorepo-fhi`) |
-| S3              | R2                                                         | **now** — parquet store + asset hosting             |
-| Lambda          | Workers                                                    | **now**                                             |
-| Lambda (heavy)  | Containers                                                 | when CPU / mem outgrow Workers                      |
-| SQS             | Queues                                                     | first event-driven worker                           |
-| SNS (fanout)    | Queues w/ multi-consumer; Email Workers; webhooks          | as needed                                           |
-| CloudWatch      | Logpush + Analytics Engine + Workers Observability         | bridged to SigNoz (`oh-monorepo-2th`)               |
-| WAF Bot Control | Bot Management (paid) + Super Bot Fight Mode + Turnstile   | when bot lane lights up (`oh-monorepo-y9a`)         |
+| AWS             | Cloudflare                                                                                                                  | Adoption stage                                                         |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| CloudFormation  | Terraform / OpenTofu CF provider OR Pulumi (no native CFN)                                                                  | when >2 services exist (tracked: `oh-monorepo-fhi`)                    |
+| S3              | R2                                                                                                                          | **now** — parquet store + asset hosting                                |
+| Lambda          | Workers                                                                                                                     | **now**                                                                |
+| Lambda (heavy)  | Containers                                                                                                                  | when CPU / mem outgrow Workers                                         |
+| SQS             | Queues                                                                                                                      | first event-driven worker                                              |
+| SNS (fanout)    | Queues w/ multi-consumer; Email Workers; webhooks                                                                           | as needed                                                              |
+| CloudWatch      | Logpush + Analytics Engine + Workers Observability                                                                          | bridged to SigNoz (`oh-monorepo-2th`)                                  |
+| WAF Bot Control | Bot Management (paid) + Super Bot Fight Mode + Turnstile                                                                    | when bot lane lights up (`oh-monorepo-y9a`)                            |
 | RDS / Aurora    | DO storage (per-object SQLite) → D1 (small relational); DuckDB-WASM for OLAP. Managed PG only via dedicated cluster ticket. | per workload; default CF-native (`oh-monorepo-ctc`, `oh-monorepo-b4b`) |
-| ElastiCache     | KV (eventually-consistent) or DO storage                   | per workload                                        |
-| DynamoDB        | KV or D1 or DO storage                                     | small relational → D1                               |
-| Step Functions  | Workflows                                                  | when multi-step batch arrives                       |
-| Kinesis         | Pipelines                                                  | when streaming ingest from ML pipeline              |
-| OpenSearch      | Vectorize (vector only) + ClickHouse for full-text         | per workload                                        |
-| SageMaker       | Workers AI (small models)                                  | as needed                                           |
+| ElastiCache     | KV (eventually-consistent) or DO storage                                                                                    | per workload                                                           |
+| DynamoDB        | KV or D1 or DO storage                                                                                                      | small relational → D1                                                  |
+| Step Functions  | Workflows                                                                                                                   | when multi-step batch arrives                                          |
+| Kinesis         | Pipelines                                                                                                                   | when streaming ingest from ML pipeline                                 |
+| OpenSearch      | Vectorize (vector only) + ClickHouse for full-text                                                                          | per workload                                                           |
+| SageMaker       | Workers AI (small models)                                                                                                   | as needed                                                              |
 
 ## Stage gates
 
