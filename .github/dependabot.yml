@@ -33,13 +33,14 @@ updates:
       prefix-development: chore
       include: scope
     groups:
-      # Patch updates across the workspace land as a single PR. Low-risk, weekly cadence.
-      npm-patch:
-        update-types: [patch]
-      # @types/* peers move together with their runtime.
+      # @types/* peers move together with their runtime. Listed first so type
+      # patches consolidate here instead of being absorbed by `npm-patch`.
       types:
         patterns: ['@types/*']
         update-types: [minor, patch]
+      # Patch updates across the workspace land as a single PR. Low-risk, weekly cadence.
+      npm-patch:
+        update-types: [patch]
     ignore:
       # Vite+ wraps Vite/Vitest/Rolldown/tsdown/Oxlint/Oxfmt — bumps come with `vp upgrade`.
       - dependency-name: vite-plus
