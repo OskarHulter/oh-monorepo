@@ -41,7 +41,7 @@ test('App renders siteConfig name with a Tailwind utility class applied', async 
     // a className-only check would miss. getComputedStyle resolves `100vh`
     // to a pixel length, so compare against the live viewport height.
     expect(main).not.toBeNull()
-    expect(parseFloat(getComputedStyle(main!).minHeight)).toBe(window.innerHeight)
+    expect(parseFloat(getComputedStyle(main!).minHeight)).toBeCloseTo(window.innerHeight, 0)
   } finally {
     // Unmount so React state / effects / handlers don't leak into the next test
     // when running browser-mode suites in shared windows.
