@@ -1,21 +1,17 @@
 name: '📋 Gemini Scheduled Issue Triage'
 
 on:
-  schedule:
-    - cron: '0 9 * * *' # Daily at 09:00 UTC
-  pull_request:
-    branches:
-      - 'main'
-      - 'release/**/*'
-    paths:
-      - '.github/workflows/gemini-scheduled-triage.yml'
-  push:
-    branches:
-      - 'main'
-      - 'release/**/*'
-    paths:
-      - '.github/workflows/gemini-scheduled-triage.yml'
   workflow_dispatch:
+  # Auto-triggers (daily cron, workflow self-edits) disabled until codebase has more substance.
+  # Re-enable by restoring the schedule/pull_request/push triggers below.
+  # schedule:
+  #   - cron: '0 9 * * *' # Daily at 09:00 UTC
+  # pull_request:
+  #   branches: ['main', 'release/**/*']
+  #   paths: ['.github/workflows/gemini-scheduled-triage.yml']
+  # push:
+  #   branches: ['main', 'release/**/*']
+  #   paths: ['.github/workflows/gemini-scheduled-triage.yml']
 
 concurrency:
   group: '${{ github.workflow }}'

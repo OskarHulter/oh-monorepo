@@ -1,6 +1,9 @@
+import { Providers } from '@oh/client'
+
+import { ports } from './adapters/index.ts'
 import { siteConfig } from './site.config.ts'
 
-export function App() {
+function Placeholder() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-neutral-950 text-neutral-50 font-mono">
       <div className="text-center space-y-2">
@@ -10,5 +13,13 @@ export function App() {
         ) : null}
       </div>
     </main>
+  )
+}
+
+export function App() {
+  return (
+    <Providers ports={ports}>
+      <Placeholder />
+    </Providers>
   )
 }

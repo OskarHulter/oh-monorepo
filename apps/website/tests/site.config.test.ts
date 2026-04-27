@@ -3,7 +3,7 @@ import { expect, test } from 'vite-plus/test'
 // Loading the stylesheet here makes the Tailwind compile chain part of the
 // test surface — if Tailwind fails to process @import 'tailwindcss', the
 // computed-style assertion below fails.
-import '../src/styles/app.css'
+import '@oh/client/ui/styles.css'
 import { siteConfig } from '../src/site.config.ts'
 
 test('siteConfig parses with expected shape', () => {

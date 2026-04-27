@@ -20,6 +20,15 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts"
     },
+    "./ui": {
+      "types": "./src/ui/index.ts",
+      "import": "./src/ui/index.ts"
+    },
+    "./ui/styles.css": "./src/ui/styles.css",
+    "./adapters/fixture": {
+      "types": "./src/adapters/fixture/index.tsx",
+      "import": "./src/adapters/fixture/index.tsx"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -28,6 +37,15 @@
       ".": {
         "types": "./dist/index.d.ts",
         "import": "./dist/index.mjs"
+      },
+      "./ui": {
+        "types": "./dist/ui/index.d.ts",
+        "import": "./dist/ui/index.mjs"
+      },
+      "./ui/styles.css": "./dist/ui/styles.css",
+      "./adapters/fixture": {
+        "types": "./dist/adapters/fixture/index.d.ts",
+        "import": "./dist/adapters/fixture/index.mjs"
       },
       "./package.json": "./package.json"
     }
@@ -52,11 +70,13 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "rimraf": "catalog:",
+    "tailwindcss": "catalog:",
     "typescript": "^6.0.2",
     "vite-plus": "^0.1.14"
   },
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0"
   }
 }
