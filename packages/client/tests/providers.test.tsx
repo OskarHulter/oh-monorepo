@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { expect, test } from 'vite-plus/test'
 
 import { Providers, usePorts, type Ports } from '../src/index.ts'
+import { createSocialLinksFixture } from '../src/ui/features/social-links/fixture.ts'
 
 const fixturePorts: Ports = {
   telemetry: {
@@ -18,7 +19,9 @@ const fixturePorts: Ports = {
     mode: 'system',
     toggle: () => undefined,
   },
-  data: {},
+  data: {
+    socialLinks: createSocialLinksFixture(),
+  },
 }
 
 test('usePorts() returns the wired ports when called inside <Providers>', () => {

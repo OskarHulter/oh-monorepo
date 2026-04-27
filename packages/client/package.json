@@ -59,6 +59,7 @@
     "prepublishOnly": "vp run build"
   },
   "dependencies": {
+    "@oh/shared": "workspace:*",
     "@oh/utils": "workspace:*"
   },
   "devDependencies": {

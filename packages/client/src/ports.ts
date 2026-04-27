@@ -1,5 +1,7 @@
 import type { ComponentType, ReactNode } from 'react'
 
+import type { SocialLinksPort } from './ui/features/social-links/port.ts'
+
 /**
  * Cross-cutting port types for `@oh/client`.
  *
@@ -36,15 +38,9 @@ export interface ThemePort {
   toggle(): void
 }
 
-/**
- * Feature data ports compose into this umbrella interface as features land.
- * Slice oh-monorepo-559 adds `socialLinks: SocialLinksPort` here.
- *
- * Intentionally empty in v1 — feature ports register via interface augmentation
- * (see slice 559) or by extending this interface in their feature folder.
- */
-// oxlint-disable-next-line typescript-eslint/no-empty-object-type
-export interface DataPort {}
+export interface DataPort {
+  socialLinks: SocialLinksPort
+}
 
 export interface Ports {
   telemetry: TelemetryPort

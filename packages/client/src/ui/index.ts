@@ -1,3 +1,5 @@
-// High barrel for UI primitives. Components register here as features land.
-// Slice oh-monorepo-559 adds Hero + SocialLinks.
-export {}
+export { Hero, type HeroProps } from './components/hero/hero.tsx'
+export { SocialLinks } from './components/social-links/social-links.tsx'
+export { useSocialLinks } from './features/social-links/use-social-links.ts'
+export { createSocialLinksFixture } from './features/social-links/fixture.ts'
+export type { SocialLinksPort } from './features/social-links/port.ts'
