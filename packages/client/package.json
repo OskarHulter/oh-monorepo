@@ -55,7 +55,9 @@
     "dev": "vp pack --watch",
     "test": "vp test",
     "check": "vp check",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist cosmos-export",
+    "cosmos": "cosmos",
+    "cosmos:export": "cosmos-export",
     "prepublishOnly": "vp run build"
   },
   "dependencies": {
@@ -63,16 +65,21 @@
     "@oh/utils": "workspace:*"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "catalog:",
     "@types/node": "^25.5.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript/native-preview": "7.0.0-dev.20260328.1",
+    "@vitejs/plugin-react": "catalog:",
     "bumpp": "^11.0.1",
     "react": "catalog:",
+    "react-cosmos": "^7.3.0",
+    "react-cosmos-plugin-vite": "^7.3.0",
     "react-dom": "catalog:",
     "rimraf": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "^6.0.2",
+    "vite": "catalog:",
     "vite-plus": "^0.1.14"
   },
   "peerDependencies": {

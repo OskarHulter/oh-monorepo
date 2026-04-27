@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/react-cosmos/config.schema.json",
+  "rootDir": "src/ui",
+  "watchDirs": ["src/ui"],
+  "fixtureFileSuffix": "fixture",
+  "ignore": ["**/features/**/fixture.ts"],
+  "plugins": ["react-cosmos-plugin-vite"],
+  "rendererUrl": "http://localhost:5050",
+  "vite": {
+    "configPath": "../../cosmos.vite.config.ts",
+    "port": 5050
+  }
+}

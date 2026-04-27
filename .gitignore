@@ -39,6 +39,10 @@ dist-ssr
 # fallow cache
 .fallow/
 
+# react-cosmos auto-generated artifacts (ADR 0017)
+**/cosmos-export/
+packages/client/src/ui/index.html
+
 # AI agent local state — local settings/state ignored, but project-level
 # skills under .claude/skills/ are checked in.
 .claude/*

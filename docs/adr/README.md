@@ -20,6 +20,7 @@ Each ADR is a single file under [`adr/`](./adr). Start a new ADR by copying the 
 - 0012 · _Adopted_ · [Infisical as the secrets source-of-truth (via varlock)](0012-infisical-secrets-source.md)
 - 0013 · _Adopted_ · [Adopt Better-Auth as the code-owned auth provider; defer WorkOS](0013-adopt-better-auth.md)
 - 0014 · _Adopted_ · [Adopt Sentry as the error / RUM / release-health backbone; reserve a tagged interstitial-experiment lane](0014-adopt-sentry.md)
+- 0017 · _Adopted_ · [Adopt react-cosmos as the component sandbox for `@oh/client/ui`; per-package config + ports decorator](0017-adopt-react-cosmos.md)
 
 ## Template
 
