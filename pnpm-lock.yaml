@@ -141,6 +141,9 @@ importers:
 
   packages/client:
     dependencies:
+      '@oh/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@oh/utils':
         specifier: workspace:*
         version: link:../utils
