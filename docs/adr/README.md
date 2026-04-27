@@ -15,6 +15,7 @@ Each ADR is a single file under [`adr/`](./adr). Start a new ADR by copying the 
 - 0007 · _Adopted_ · [Defer Tanstack Start adoption to first dynamic route](0007-defer-tanstack-start.md)
 - 0008 · _Adopted_ · [Security scanning baseline (Dependabot + CodeQL, defer Trivy/Socket.dev/OSV)](0008-security-scanning-baseline.md)
 - 0009 · _Adopted_ · [Adopt Drizzle (ORM + Kit + Studio) as the SQL layer; defer per-workload DB picks](0009-adopt-drizzle-as-sql-layer.md)
+- 0011 · _Adopted_ · [Per-surface ownership for chart libraries](0011-per-surface-chart-libraries.md)
 
 ## Template
 
