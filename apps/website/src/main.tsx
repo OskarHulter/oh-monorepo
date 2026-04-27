@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 
 import { App } from './app.tsx'
 
-import './styles/app.css'
+import '@oh/client/ui/styles.css'
 
 const root = document.getElementById('app')
 if (!root) throw new Error('No #app element')

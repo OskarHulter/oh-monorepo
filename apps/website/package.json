@@ -19,6 +19,7 @@
     "clean": "rimraf dist src/env.d.ts"
   },
   "dependencies": {
+    "@oh/client": "workspace:*",
     "@oh/shared": "workspace:*",
     "@varlock/vite-integration": "catalog:",
     "react": "catalog:",
