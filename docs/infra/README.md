@@ -10,3 +10,4 @@ Living references for the platform decisions that shape `oh-monorepo`. Unlike AD
 - [Animation + shader stack](animation-stack.md) — tiered animation/shader stack with perf budgets and spike status (oh-monorepo-cgt; ratified by ADR 0010).
 - [Secrets adoption plan — Infisical via varlock](secrets-adoption-plan.md) — per-env matrix + init flow + workflows for the source layer beneath ADR 0001 (oh-monorepo-6is, ADR 0012).
 - [Auth stack — candidate evaluation matrix](auth-evaluation.md) — Better-Auth vs Clerk vs Auth.js (WorkOS deferred); pick ratified in [ADR 0013](../adr/0013-adopt-better-auth.md) (oh-monorepo-te9).
+- [Sentry adoption plan](sentry-adoption-plan.md) — error / RUM / release-health wiring + interstitial-experiment lane; principle ratified in [ADR 0014](../adr/0014-adopt-sentry.md) (oh-monorepo-jn4).
