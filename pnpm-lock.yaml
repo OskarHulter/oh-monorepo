@@ -31,8 +31,8 @@ catalogs:
       specifier: ^6.0.1
       version: 6.0.1
     fallow:
-      specifier: ^2.48.4
-      version: 2.48.4
+      specifier: ^2.52.0
+      version: 2.52.0
     pino:
       specifier: ^10.3.1
       version: 10.3.1
@@ -79,7 +79,7 @@ importers:
         version: 20.5.0
       fallow:
         specifier: 'catalog:'
-        version: 2.48.4
+        version: 2.52.0
       rimraf:
         specifier: 'catalog:'
         version: 6.1.3
@@ -137,7 +137,7 @@ importers:
         version: '@voidzero-dev/vite-plus-core@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)'
       vite-plus:
         specifier: 'catalog:'
-        version: 0.1.19(@types/node@25.6.0)(@voidzero-dev/vite-plus-core@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3))(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
+        version: 0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(vite@8.0.10(@types/node@25.6.0)(jiti@2.6.1)(yaml@2.8.3))(yaml@2.8.3)
 
   packages/client:
     dependencies:
@@ -412,43 +412,43 @@ packages:
   '@emnapi/wasi-threads@1.2.1':
     resolution: {integrity: sha512-uTII7OYF+/Mes/MrcIOYp5yOtSMLBWSIoLPpcgwipoiKbli6k322tcoFsxoIIxPDqW01SQGAgko4EzZi2BNv2w==}
 
-  '@fallow-cli/darwin-arm64@2.48.4':
-    resolution: {integrity: sha512-eH2ZN4bMm5a61yoYLEKAdARu5yFJjtfvIw8kV5QeTrsRC/QAT8TPg0hm0hgoozPoy/NI2J/VwJMDLRWlr37dPQ==}
+  '@fallow-cli/darwin-arm64@2.52.0':
+    resolution: {integrity: sha512-pvWp2jn+LPfPqfKQOEd4PwC69Rb0g4gv95j38v6gkT8xXMEzrjgzZpijYojVPuWDeMYRSG1+01njghL72qJi+A==}
     cpu: [arm64]
     os: [darwin]
 
-  '@fallow-cli/darwin-x64@2.48.4':
-    resolution: {integrity: sha512-BSiSOuaF2AYCfV+P8ISLJNYVqMau9pu3toQEkNBW7Ahmj+RNEZXPyxKa9BED+qABq/HWHfXaC4fwqzhmwz+xCw==}
+  '@fallow-cli/darwin-x64@2.52.0':
+    resolution: {integrity: sha512-Vo2xLC2EPcv+JervfbsP/Mzlhekjo1w3uMtryY+pULztHbH960srJscr8TFwRnoCYXdZjRtO2CXdZZ/7tuDbHA==}
     cpu: [x64]
     os: [darwin]
 
-  '@fallow-cli/linux-arm64-gnu@2.48.4':
-    resolution: {integrity: sha512-Ug7p13gpTMMgfOuRRgoOhXMRo6lPAJ/ImN1Y0G4dAotQxtoJ1zzZbgYc9bNqUrUvSRLXkV/X8O9/jlsnw94RAg==}
+  '@fallow-cli/linux-arm64-gnu@2.52.0':
+    resolution: {integrity: sha512-AIBLQqlq7hlCFeLj+LyFNhXPNiyfSKl8HrAtj8azfCW+9h4IR0vXi6apRvbHE9/VCoHlMlZpDE/6528qUpTUNg==}
     cpu: [arm64]
     os: [linux]
 
-  '@fallow-cli/linux-arm64-musl@2.48.4':
-    resolution: {integrity: sha512-0YoKUBQKM34BG4zYWKfN36knAwIqqkG5U5WHwa5zHFwt2RJmcpO7/8iM2dTATH0Z51A/j4cMM6RbWX3ZffGTtA==}
+  '@fallow-cli/linux-arm64-musl@2.52.0':
+    resolution: {integrity: sha512-x1a3LCFf+E9irw5Lkj1pT9GHRa6LfYg+w6SLqE8deZei6frtanqAeGKyD5d+24LzHF+TqlySlSQxnbBTMbl8AA==}
     cpu: [arm64]
     os: [linux]
 
-  '@fallow-cli/linux-x64-gnu@2.48.4':
-    resolution: {integrity: sha512-p4bWp1vleAWJ2gYNaTGRa36HXd/qG6e8huxjinkwfnxZZ6Kt86oTvlfI6n+LlV4njudSFRODKJDt05zUjYjLxA==}
+  '@fallow-cli/linux-x64-gnu@2.52.0':
+    resolution: {integrity: sha512-JBezH1wC4CWrsnpkA5fdXwvbf6JIUKvZ9o9N855PVIwnmObj34KY+CvLZnlst4LassTAZk7NWy650OaJaiNWGg==}
     cpu: [x64]
     os: [linux]
 
-  '@fallow-cli/linux-x64-musl@2.48.4':
-    resolution: {integrity: sha512-d8qGNmkyUWrQ9DeRyrwM8FRIbRB9Ps4dlpedkB/2VBstRqf678Ixf+o3CxeAu0ln3jV/8TS7l6MgmcLrXUF8Tw==}
+  '@fallow-cli/linux-x64-musl@2.52.0':
+    resolution: {integrity: sha512-hv9Utb8oea+QJ526L7dl8qWexLYLwNsNLkSB8Ywb8+8q1oHXH3ORccEcxXEud/hjzHUHbjPcgqL36/CvLP02Xw==}
     cpu: [x64]
     os: [linux]
 
-  '@fallow-cli/win32-arm64-msvc@2.48.4':
-    resolution: {integrity: sha512-m6YfYAwHwFxtb7tl+cYft3jR47EagYzbPtJwSVN80vUbH9rkR6Rsc1MKadXhuAAOToa0YApcGtSesGwXfdWbdA==}
+  '@fallow-cli/win32-arm64-msvc@2.52.0':
+    resolution: {integrity: sha512-uYT1WXu9lMIpBYfHqNNiULvTg+YgGxeCgfvMrRTO36LVrRXzdnKn5xeuYXx7CwjbQb9Zsu4PzHB++KC9ocGKiQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@fallow-cli/win32-x64-msvc@2.48.4':
-    resolution: {integrity: sha512-QTvZUX8TCILkuYgZisqLUZe3bN2R2dABiJES5lqnxDr6ouGc/ABDGLNg0dgUdgjNA4xmo+YFLfEISxLXOTUJrw==}
+  '@fallow-cli/win32-x64-msvc@2.52.0':
+    resolution: {integrity: sha512-qJ2v+En5PLZidrsaapYUPuOUY2b1ZzbNlUbDg5Ly0Th8I2TaUpB8ZgKPWa3t+ISBfjbylmhrk1eLj0JFVEaEqw==}
     cpu: [x64]
     os: [win32]
 
@@ -1399,8 +1399,8 @@ packages:
   extendable-error@0.1.7:
     resolution: {integrity: sha512-UOiS2in6/Q0FK0R0q6UY9vYpQ21mr/Qn1KOnte7vsACuNJf514WvCCUHSRCPcgjPT2bAhNIJdlE6bVap1GKmeg==}
 
-  fallow@2.48.4:
-    resolution: {integrity: sha512-Jd34jME5n9x7XCWyzvGnICEMUFtjhgqPXMRoI8dyRFUvETOpqySNI0jBYLLJIpR8Eyjm7dKXPxbM9mAk7EsL/A==}
+  fallow@2.52.0:
+    resolution: {integrity: sha512-yZNFqRODW42mnGKYz6RosZR2CNhNwdYkXKIGBARKWNMRGwn9E9jonXFZDB+czjPL6rDnthNRheIJpRhDvzAaUw==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -2422,28 +2422,28 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@fallow-cli/darwin-arm64@2.48.4':
+  '@fallow-cli/darwin-arm64@2.52.0':
     optional: true
 
-  '@fallow-cli/darwin-x64@2.48.4':
+  '@fallow-cli/darwin-x64@2.52.0':
     optional: true
 
-  '@fallow-cli/linux-arm64-gnu@2.48.4':
+  '@fallow-cli/linux-arm64-gnu@2.52.0':
     optional: true
 
-  '@fallow-cli/linux-arm64-musl@2.48.4':
+  '@fallow-cli/linux-arm64-musl@2.52.0':
     optional: true
 
-  '@fallow-cli/linux-x64-gnu@2.48.4':
+  '@fallow-cli/linux-x64-gnu@2.52.0':
     optional: true
 
-  '@fallow-cli/linux-x64-musl@2.48.4':
+  '@fallow-cli/linux-x64-musl@2.52.0':
     optional: true
 
-  '@fallow-cli/win32-arm64-msvc@2.48.4':
+  '@fallow-cli/win32-arm64-msvc@2.52.0':
     optional: true
 
-  '@fallow-cli/win32-x64-msvc@2.48.4':
+  '@fallow-cli/win32-x64-msvc@2.52.0':
     optional: true
 
   '@inquirer/external-editor@1.0.3(@types/node@25.6.0)':
@@ -2880,45 +2880,6 @@ snapshots:
   '@voidzero-dev/vite-plus-linux-x64-musl@0.1.19':
     optional: true
 
-  '@voidzero-dev/vite-plus-test@0.1.19(@types/node@25.6.0)(@voidzero-dev/vite-plus-core@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3))(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)':
-    dependencies:
-      '@standard-schema/spec': 1.1.0
-      '@types/chai': 5.2.3
-      '@voidzero-dev/vite-plus-core': 0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
-      es-module-lexer: 1.7.0
-      obug: 2.1.1
-      pixelmatch: 7.1.0
-      pngjs: 7.0.0
-      sirv: 3.0.2
-      std-env: 4.1.0
-      tinybench: 2.9.0
-      tinyexec: 1.1.1
-      tinyglobby: 0.2.16
-      vite: '@voidzero-dev/vite-plus-core@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)'
-      ws: 8.20.0
-    optionalDependencies:
-      '@types/node': 25.6.0
-    transitivePeerDependencies:
-      - '@arethetypeswrong/core'
-      - '@tsdown/css'
-      - '@tsdown/exe'
-      - '@vitejs/devtools'
-      - bufferutil
-      - esbuild
-      - jiti
-      - less
-      - publint
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - terser
-      - tsx
-      - typescript
-      - unplugin-unused
-      - utf-8-validate
-      - yaml
-
   '@voidzero-dev/vite-plus-test@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(vite@8.0.10(@types/node@25.6.0)(jiti@2.6.1)(yaml@2.8.3))(yaml@2.8.3)':
     dependencies:
       '@standard-schema/spec': 1.1.0
@@ -3121,18 +3082,18 @@ snapshots:
 
   extendable-error@0.1.7: {}
 
-  fallow@2.48.4:
+  fallow@2.52.0:
     dependencies:
       detect-libc: 2.1.2
     optionalDependencies:
-      '@fallow-cli/darwin-arm64': 2.48.4
-      '@fallow-cli/darwin-x64': 2.48.4
-      '@fallow-cli/linux-arm64-gnu': 2.48.4
-      '@fallow-cli/linux-arm64-musl': 2.48.4
-      '@fallow-cli/linux-x64-gnu': 2.48.4
-      '@fallow-cli/linux-x64-musl': 2.48.4
-      '@fallow-cli/win32-arm64-msvc': 2.48.4
-      '@fallow-cli/win32-x64-msvc': 2.48.4
+      '@fallow-cli/darwin-arm64': 2.52.0
+      '@fallow-cli/darwin-x64': 2.52.0
+      '@fallow-cli/linux-arm64-gnu': 2.52.0
+      '@fallow-cli/linux-arm64-musl': 2.52.0
+      '@fallow-cli/linux-x64-gnu': 2.52.0
+      '@fallow-cli/linux-x64-musl': 2.52.0
+      '@fallow-cli/win32-arm64-msvc': 2.52.0
+      '@fallow-cli/win32-x64-msvc': 2.52.0
 
   fast-deep-equal@3.1.3: {}
 
@@ -3703,53 +3664,6 @@ snapshots:
   universalify@0.1.2: {}
 
   varlock@0.9.1: {}
-
-  vite-plus@0.1.19(@types/node@25.6.0)(@voidzero-dev/vite-plus-core@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3))(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3):
-    dependencies:
-      '@oxc-project/types': 0.126.0
-      '@voidzero-dev/vite-plus-core': 0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
-      '@voidzero-dev/vite-plus-test': 0.1.19(@types/node@25.6.0)(@voidzero-dev/vite-plus-core@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3))(jiti@2.6.1)(typescript@6.0.3)(yaml@2.8.3)
-      oxfmt: 0.45.0
-      oxlint: 1.60.0(oxlint-tsgolint@0.21.1)
-      oxlint-tsgolint: 0.21.1
-    optionalDependencies:
-      '@voidzero-dev/vite-plus-darwin-arm64': 0.1.19
-      '@voidzero-dev/vite-plus-darwin-x64': 0.1.19
-      '@voidzero-dev/vite-plus-linux-arm64-gnu': 0.1.19
-      '@voidzero-dev/vite-plus-linux-arm64-musl': 0.1.19
-      '@voidzero-dev/vite-plus-linux-x64-gnu': 0.1.19
-      '@voidzero-dev/vite-plus-linux-x64-musl': 0.1.19
-      '@voidzero-dev/vite-plus-win32-arm64-msvc': 0.1.19
-      '@voidzero-dev/vite-plus-win32-x64-msvc': 0.1.19
-    transitivePeerDependencies:
-      - '@arethetypeswrong/core'
-      - '@edge-runtime/vm'
-      - '@opentelemetry/api'
-      - '@tsdown/css'
-      - '@tsdown/exe'
-      - '@types/node'
-      - '@vitejs/devtools'
-      - '@vitest/coverage-istanbul'
-      - '@vitest/coverage-v8'
-      - '@vitest/ui'
-      - bufferutil
-      - esbuild
-      - happy-dom
-      - jiti
-      - jsdom
-      - less
-      - publint
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - terser
-      - tsx
-      - typescript
-      - unplugin-unused
-      - utf-8-validate
-      - vite
-      - yaml
 
   vite-plus@0.1.19(@types/node@25.6.0)(jiti@2.6.1)(typescript@6.0.3)(vite@8.0.10(@types/node@25.6.0)(jiti@2.6.1)(yaml@2.8.3))(yaml@2.8.3):
     dependencies:
