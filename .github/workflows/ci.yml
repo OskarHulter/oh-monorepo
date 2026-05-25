@@ -24,7 +24,7 @@ jobs:
       - uses: voidzero-dev/setup-vp@b69666a3d815beb21ce968bbfc9c17e63973986b # v1.8.0
         with:
           cache: true
-      - uses: dmno-dev/varlock-action@7410a69ccaeb6f74ef9bc4a2e4b18a11a9cbc4bd # v1.0.1
+      - uses: dmno-dev/varlock-action@e1f2cd2307d6aa069e71958ce2857cc947fbc1ec # v1.0.2
         with:
           working-directory: apps/website
       - run: vp check
