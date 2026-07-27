@@ -95,7 +95,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: 'Setup pnpm'
-        uses: pnpm/action-setup@903f9c1a6ebcba6cf41d87230be49611ac97822e # v4.1.0
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v4.1.0
 
       - name: 'Run Gemini Issue Analysis'
         id: 'gemini_issue_analysis'
@@ -162,7 +162,7 @@ jobs:
         id: 'mint_identity_token'
         if: |-
           ${{ vars.APP_ID }}
-        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: '${{ vars.APP_ID }}'
           private-key: '${{ secrets.APP_PRIVATE_KEY }}'
